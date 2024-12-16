@@ -6,7 +6,7 @@
         <div class="px-10 py-10 max-w-7xl text-center">
           <h1 class="mb-6 mt-14 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-none max-w-6xl tracking-normal text-gray-900 md:tracking-tight">
             Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-pink-400 to-red-500">Journey to Knowledge</span>
-            <br class="lg:block hidden">Starts Here!!!!!!!!
+            <br class="lg:block hidden">Starts Here
           </h1>
         </div>
     
