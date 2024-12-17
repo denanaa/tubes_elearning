@@ -4,41 +4,109 @@
 @section('header', 'Data Kategori')
 
 @section('content')
-<div class="flex items-center justify-between mb-4">
-    <input type="text" placeholder="Cari..." class="p-2 border rounded w-[88%]">
-    <a href="{{ route('create-kategori') }}" class="bg-blue-500 text-white px-4 py-2 ml-2 rounded hover:bg-blue-600">Tambah Data</a>
+<div class="flex items-center mb-4">
+    <div class="relative">
+    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        </svg>
+    </div>
+    <input type="text" placeholder="Cari..." class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 ">
 </div>
-<table class="w-full bg-white shadow-md rounded border">
-    <thead class="bg-[#37AFE1] text-white">
-        <tr>
-            <th class="py-2 px-4">No</th>
-            <th class="py-2 px-4">Nama</th>
-            <th class="py-2 px-4">Email</th>
-            <th class="py-2 px-4">Role</th>
-            <th class="py-2 px-4">Aksi</th>
-        </tr>
-    </thead>
-    <tbody class="text-center">
-        <tr class="border-b hover:bg-gray-100">
-            <td class="py-2 px-4">1</td>
-            <td class="py-2 px-4">John Doe</td>
-            <td class="py-2 px-4">john@example.com</td>
-            <td class="py-2 px-4">Admin</td>
-            <td class="py-2 px-4">
-                <button 
-                    onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" 
-                    class="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600">
-                    Edit
-                </button>
-                <button 
-                    onclick="showDeleteModal('1')" 
-                    class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600">
-                    Hapus
-                </button>
-            </td>
-        </tr>
+    <a href="{{ route('create-user') }}" class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 ml-4 focus:outline-none">Add Kategori</a>
+</div>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-white uppercase bg-[#37AFE1] text-center">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    No
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Email
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Role
+                </th>
+                <th scope="col" class="px-6 py-3 ">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
+                <td class="px-6 py-4">
+                    1
+                </td>
+                <td class="px-6 py-4">
+                    John Doe
+                </td>
+                <td class="px-6 py-4">
+                    john@example.com
+                </td>
+                <td class="px-6 py-4">
+                    Admin
+                </td>
+                <td class="px-6 py-4">
+                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
+                        Edit
+                    </button>
+                    <button type="button" onclick="showDeleteModal('1')"  class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
+                <td class="px-6 py-4">
+                    1
+                </td>
+                <td class="px-6 py-4">
+                    John Doe
+                </td>
+                <td class="px-6 py-4">
+                    john@example.com
+                </td>
+                <td class="px-6 py-4">
+                    Admin
+                </td>
+                <td class="px-6 py-4">
+                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
+                        Edit
+                    </button>
+                    <button type="button" onclick="showDeleteModal('1')" class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
+                <td class="px-6 py-4">
+                    1
+                </td>
+                <td class="px-6 py-4">
+                    John Doe
+                </td>
+                <td class="px-6 py-4">
+                    john@example.com
+                </td>
+                <td class="px-6 py-4">
+                    Admin
+                </td>
+                <td class="px-6 py-4">
+                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
+                        Edit
+                    </button>
+                    <button type="button" onclick="showDeleteModal('1')"  class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
+                        Delete
+                    </button>
+                </td>
+            </tr> 
     </tbody>
 </table>
+</div>
 
 <!-- Modal Edit -->
 <div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
