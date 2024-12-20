@@ -6,12 +6,16 @@ use App\Http\Controllers\MateriController;
 use App\Http\Controllers\VideoController;
 
 Route::get('/', function () {
+    return view('welcome'); 
+})->name('welcome');
+
+Route::get('/welcome', function () {
     return view('welcome');
-});
+})->middleware(['auth', 'verified'])->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
 
 Route::get('/data-user', function () {
     return view('data-user');
