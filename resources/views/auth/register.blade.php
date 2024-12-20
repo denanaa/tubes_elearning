@@ -8,7 +8,6 @@
 
         <form method="POST" action="{{ route('register') }}" class="space-y-4">
             @csrf
-
             <!-- Name -->
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">Nama</label>
@@ -23,6 +22,14 @@
                 <input id="email" name="email" type="email" value="{{ old('email') }}" required
                        class="input input-bordered w-full" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
+
+            <!-- Profile Image -->
+            <div>
+                <label for="profile_image" class="block text-sm font-medium text-gray-700">Foto Profil</label>
+                <input id="profile_image" name="profile_image" type="file" 
+                    class="input input-bordered w-full" />
+                <x-input-error :messages="$errors->get('profile_image')" class="mt-2" />
             </div>
 
             <!-- Password -->
