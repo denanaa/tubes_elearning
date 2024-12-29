@@ -24,13 +24,16 @@
                     No
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Name
+                    Title Video
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Email
+                    Link Video
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Role
+                    Thumbnail Video
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Description Video
                 </th>
                 <th scope="col" class="px-6 py-3 ">
                     Action
@@ -43,16 +46,19 @@
                     1
                 </td>
                 <td class="px-6 py-4">
-                    John Doe
+                    Title Video 1
                 </td>
                 <td class="px-6 py-4">
-                    john@example.com
+                    <a href="" class="underline text-blue-600 hover:text-blue-300">https://www.example.com/video</a>
                 </td>
                 <td class="px-6 py-4">
-                    Admin
+                    <img src="{{ asset('images/images1.jpg') }}" alt="Category Image" class="w-24 h-16 object-cover mx-auto rounded-lg">
+                </td>
+                <td class="px-6 py-4 w-[30%] text-left">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt aperiam quaerat, facere sint amet hic magni sequi animi atque! At.
                 </td>
                 <td class="px-6 py-4">
-                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
+                    <button type="button" onclick="showEditModal('1', 'Title Video 1', 'https://www.example.com/video', '{{ asset('images/images1.jpg') }}', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt aperiam quaerat, facere sint amet hic magni sequi animi atque! At.')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
                         Edit
                     </button>
                     <button type="button" onclick="showDeleteModal('1')"  class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
@@ -60,50 +66,6 @@
                     </button>
                 </td>
             </tr>
-            <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
-                <td class="px-6 py-4">
-                    1
-                </td>
-                <td class="px-6 py-4">
-                    John Doe
-                </td>
-                <td class="px-6 py-4">
-                    john@example.com
-                </td>
-                <td class="px-6 py-4">
-                    Admin
-                </td>
-                <td class="px-6 py-4">
-                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
-                        Edit
-                    </button>
-                    <button type="button" onclick="showDeleteModal('1')" class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-            <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
-                <td class="px-6 py-4">
-                    1
-                </td>
-                <td class="px-6 py-4">
-                    John Doe
-                </td>
-                <td class="px-6 py-4">
-                    john@example.com
-                </td>
-                <td class="px-6 py-4">
-                    Admin
-                </td>
-                <td class="px-6 py-4">
-                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
-                        Edit
-                    </button>
-                    <button type="button" onclick="showDeleteModal('1')"  class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
-                        Delete
-                    </button>
-                </td>
-            </tr> 
     </tbody>
 </table>
 </div>
@@ -116,19 +78,24 @@
         <form>
             <input type="hidden" id="editId" name="id" value="">
             <div class="my-4 space-y-1">
-                <label for="editName" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name</label>
-                <input type="text" id="editName" name="name" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Nama User">
+                <label for="editTitle" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Title Video</label>
+                <input type="text" id="editTitle" name="title" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Title Video">
             </div>
             <div class="my-4 space-y-1">
-                <label for="editEmail" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email</label>
-                <input type="email" id="editEmail" name="email" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Email User">
+                <label for="editLink" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Link Video
+                </label>
+                <input type="url" id="editLink" name="link" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="https://example.com/video">
+            </div>            
+            <div class="my-4 space-y-1">
+                <label for="editImage" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Thumbnail Video</label>
+                <input type="file" id="editImage" name="image" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Thumbnail Video" accept="images/*"
+        onchange="previewImage(event)">
+                <img id="imagePreview" src="" alt="Image Preview" class="w-52 h-32 mt-2 object-cover rounded-lg hidden">
             </div>
             <div class="my-4 space-y-1">
-                <label for="editRole" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Role</label>
-                <select id="editRole" name="role" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50">
-                    <option value="Admin">Admin</option>
-                    <option value="User">User</option>
-                </select>
+                <label for="editDescription" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Description Video</label>
+                <textarea type="text" id="editDescription" name="description" rows ="6" class="flex w-full px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Description Video"></textarea>
             </div>
             <div class="flex justify-end">
                 <button type="button" onclick="hideEditModal()" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
@@ -154,11 +121,35 @@
 </div>
 
 <script>
-    function showEditModal(id, name, email, role) {
+    function previewImage(event) {
+        const imagePreview = document.getElementById('imagePreview');
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                imagePreview.src = reader.result;
+                imagePreview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.classList.add('hidden');
+        }
+    }
+
+    function showEditModal(id, title, link, image, description) {
         document.getElementById('editId').value = id;
-        document.getElementById('editName').value = name;
-        document.getElementById('editEmail').value = email;
-        document.getElementById('editRole').value = role;
+        document.getElementById('editTitle').value = title;
+        document.getElementById('editLink').value = link;
+        document.getElementById('editDescription').value = description;
+        const imagePreview = document.getElementById('imagePreview');
+        if (image) {
+            imagePreview.src = image;
+            imagePreview.classList.remove('hidden');
+        } else {
+            imagePreview.classList.add('hidden');
+        }
+        document.getElementById('editModal').classList.remove('hidden');
+
         document.getElementById('editModal').classList.remove('hidden');
     }
 
