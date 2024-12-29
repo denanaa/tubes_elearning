@@ -5,13 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\VideoController;
 
-Route::get('/', function () {
-    return view('welcome'); 
-})->name('welcome');
 
-Route::get('/welcome', function () {
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ModulController;
+
+
+Route::get('/', function () {
     return view('welcome');
-})->middleware(['auth', 'verified'])->name('welcome');
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -27,18 +28,32 @@ Route::get('/data-modul', function () {
 
 Route::get('/data-kategori', function () {
     return view('data-kategori');
-})->name('data-kategori');
+})->name('data-kategori');  
 
 Route::get('/data-video', function () {
     return view('data-video');
 })->name('data-video');
 
 
-Route::view('/data-user', 'data-user')->name('data-user');
+
 Route::view('/tambah-user', 'create-user')->name('create-user');
 
-Route::view('/data-modul', 'data-modul')->name('data-modul');
+
+Route::get('/data-user', [UserController::class, 'index'])->name('data-user');
+Route::get('/create-user', [UserController::class, 'create'])->name('create-user');
+Route::post('/create-user', [UserController::class, 'store'])->name('store-user');
+Route::get('/edit-user/{id}', [UserController::class, 'edit'])->name('edit-user');
+Route::post('/update-user/{id}', [UserController::class, 'update'])->name('update-user');
+Route::post('/delete-user/{id}', [UserController::class, 'destroy'])->name('delete-user');
+
+
+
+
+
+Route::get('/data-modul', [ModulController::class, 'index'])->name('data-modul');
 Route::view('/tambah-modul', 'create-modul')->name('create-modul');
+
+Route::post('/store-modul', [ModulController::class, 'store'])->name('store-modul');
 
 Route::view('/data-kategori', 'data-kategori')->name('data-kategori');
 Route::view('/tambah-kategori', 'create-kategori')->name('create-kategori');
@@ -51,6 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 
 Route::get('/content', function () {

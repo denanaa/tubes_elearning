@@ -5,7 +5,8 @@
 
 @section('content')
 <div class="container">
-    <form>
+    <form action="{{ route('store-user') }}" method="POST">
+        @csrf
         <div class="my-4 space-y-1">
             <label for="editName" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name</label>
             <input type="text" id="editName" name="name" class="flex w-full max-w-xs h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="name">

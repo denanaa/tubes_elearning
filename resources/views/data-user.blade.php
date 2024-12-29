@@ -38,72 +38,23 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($users as $index => $user)
             <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
+                <td class="px-6 py-4">{{ $index + 1 }}</td>
+                <td class="px-6 py-4">{{ $user->name }}</td>
+                <td class="px-6 py-4">{{ $user->email }}</td>
+                <td class="px-6 py-4">{{ $user->role }}</td>
                 <td class="px-6 py-4">
-                    1
-                </td>
-                <td class="px-6 py-4">
-                    John Doe
-                </td>
-                <td class="px-6 py-4">
-                    john@example.com
-                </td>
-                <td class="px-6 py-4">
-                    Admin
-                </td>
-                <td class="px-6 py-4">
-                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
+                    <button onclick="showEditModal('{{ $user->id }}', '{{ $user->name }}', '{{ $user->email }}', '{{ $user->role }}')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
                         Edit
                     </button>
-                    <button type="button" onclick="showDeleteModal('1')"  class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
-                        Delete
-                    </button>
+                <form action="{{ route('delete-user', $user->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">Delete</button>
+                </form>
                 </td>
             </tr>
-            <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
-                <td class="px-6 py-4">
-                    1
-                </td>
-                <td class="px-6 py-4">
-                    John Doe
-                </td>
-                <td class="px-6 py-4">
-                    john@example.com
-                </td>
-                <td class="px-6 py-4">
-                    Admin
-                </td>
-                <td class="px-6 py-4">
-                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
-                        Edit
-                    </button>
-                    <button type="button" onclick="showDeleteModal('1')" class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-            <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
-                <td class="px-6 py-4">
-                    1
-                </td>
-                <td class="px-6 py-4">
-                    John Doe
-                </td>
-                <td class="px-6 py-4">
-                    john@example.com
-                </td>
-                <td class="px-6 py-4">
-                    Admin
-                </td>
-                <td class="px-6 py-4">
-                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
-                        Edit
-                    </button>
-                    <button type="button" onclick="showDeleteModal('1')"  class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
-                        Delete
-                    </button>
-                </td>
-            </tr> 
+            @endforeach
     </tbody>
 </table>
 </div>
@@ -113,7 +64,8 @@
     <div class="bg-white p-6  w-[90%] max-w-lg border rounded-lg shadow-sm bg-card text-neutral-900">
         <h3 class="text-base font-semibold text-gray-90 mb-4">Edit Data User</h3>
         <p class="mb-4 text-sm text-gray-500">Update user details here. Click 'Save' to apply changes or 'Cancel' to discard them..</p>
-        <form>
+        <form action="{{ route('update-user', '') }}" method="POST" id="editForm">
+            @csrf
             <input type="hidden" id="editId" name="id" value="">
             <div class="my-4 space-y-1">
                 <label for="editName" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name</label>
@@ -143,7 +95,8 @@
     <div class="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-sm">
         <h3 class="text-base font-semibold text-gray-90 mb-4">Delete Data</h3>
         <p class="mb-4 text-sm text-gray-500">Are you sure you want to delete this data?</p>
-        <form>
+        <form action="{{ route('delete-user', $user->id) }}" method="POST" style="display:inline;">
+            @csrf
             <input type="hidden" id="deleteId" name="id" value="">
             <div class="flex justify-end ">
                 <button type="button" onclick="hideDeleteModal()" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
@@ -155,11 +108,16 @@
 
 <script>
     function showEditModal(id, name, email, role) {
+        
         document.getElementById('editId').value = id;
         document.getElementById('editName').value = name;
         document.getElementById('editEmail').value = email;
         document.getElementById('editRole').value = role;
         document.getElementById('editModal').classList.remove('hidden');
+
+        const form = document.getElementById('editForm');
+        form.action = `/update-user/${id}`;
+
     }
 
     function hideEditModal() {
