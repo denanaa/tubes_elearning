@@ -24,13 +24,7 @@
                     No
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Email
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Role
+                    Modul Name
                 </th>
                 <th scope="col" class="px-6 py-3 ">
                     Action
@@ -43,16 +37,10 @@
                     1
                 </td>
                 <td class="px-6 py-4">
-                    John Doe
+                    Modul Name 1
                 </td>
                 <td class="px-6 py-4">
-                    john@example.com
-                </td>
-                <td class="px-6 py-4">
-                    Admin
-                </td>
-                <td class="px-6 py-4">
-                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
+                    <button type="button" onclick="showEditModal('1', 'Modul Name 1')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
                         Edit
                     </button>
                     <button type="button" onclick="showDeleteModal('1')"  class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
@@ -60,50 +48,6 @@
                     </button>
                 </td>
             </tr>
-            <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
-                <td class="px-6 py-4">
-                    1
-                </td>
-                <td class="px-6 py-4">
-                    John Doe
-                </td>
-                <td class="px-6 py-4">
-                    john@example.com
-                </td>
-                <td class="px-6 py-4">
-                    Admin
-                </td>
-                <td class="px-6 py-4">
-                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
-                        Edit
-                    </button>
-                    <button type="button" onclick="showDeleteModal('1')" class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-            <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
-                <td class="px-6 py-4">
-                    1
-                </td>
-                <td class="px-6 py-4">
-                    John Doe
-                </td>
-                <td class="px-6 py-4">
-                    john@example.com
-                </td>
-                <td class="px-6 py-4">
-                    Admin
-                </td>
-                <td class="px-6 py-4">
-                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
-                        Edit
-                    </button>
-                    <button type="button" onclick="showDeleteModal('1')"  class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
-                        Delete
-                    </button>
-                </td>
-            </tr> 
     </tbody>
 </table>
 </div>
@@ -116,19 +60,8 @@
         <form>
             <input type="hidden" id="editId" name="id" value="">
             <div class="my-4 space-y-1">
-                <label for="editName" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name</label>
-                <input type="text" id="editName" name="name" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Nama User">
-            </div>
-            <div class="my-4 space-y-1">
-                <label for="editEmail" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email</label>
-                <input type="email" id="editEmail" name="email" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Email User">
-            </div>
-            <div class="my-4 space-y-1">
-                <label for="editRole" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Role</label>
-                <select id="editRole" name="role" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50">
-                    <option value="Admin">Admin</option>
-                    <option value="User">User</option>
-                </select>
+                <label for="editModulName" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Modul Name</label>
+                <input type="text" id="editModulName" name="name" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Modul Name">
             </div>
             <div class="flex justify-end">
                 <button type="button" onclick="hideEditModal()" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
@@ -154,11 +87,9 @@
 </div>
 
 <script>
-    function showEditModal(id, name, email, role) {
+    function showEditModal(id, name) {
         document.getElementById('editId').value = id;
-        document.getElementById('editName').value = name;
-        document.getElementById('editEmail').value = email;
-        document.getElementById('editRole').value = role;
+        document.getElementById('editModulName').value = name;
         document.getElementById('editModal').classList.remove('hidden');
     }
 
