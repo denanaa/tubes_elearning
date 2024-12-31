@@ -95,6 +95,7 @@
     <div class="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-sm">
         <h3 class="text-base font-semibold text-gray-90 mb-4">Delete Data</h3>
         <p class="mb-4 text-sm text-gray-500">Are you sure you want to delete this data?</p>
+        @foreach($users as $user)
         <form action="{{ route('delete-user', $user->id) }}" method="POST" style="display:inline;">
             @csrf
             <input type="hidden" id="deleteId" name="id" value="">
@@ -103,6 +104,7 @@
                 <button type="submit" class="inline-flex w-full justify-center rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-600 sm:ml-3 sm:w-auto">Delete</button>
             </div>
         </form>
+        @endforeach
     </div>
 </div>
 

@@ -3,11 +3,13 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriController;
-use App\Http\Controllers\VideoController;
+
 
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ModulController;
+use App\Http\Controllers\VideoController;
 
 
 Route::get('/', function () {
@@ -48,18 +50,40 @@ Route::post('/delete-user/{id}', [UserController::class, 'destroy'])->name('dele
 
 
 
-
-
-Route::get('/data-modul', [ModulController::class, 'index'])->name('data-modul');
 Route::view('/tambah-modul', 'create-modul')->name('create-modul');
 
-Route::post('/store-modul', [ModulController::class, 'store'])->name('store-modul');
+Route::get('/data-modul', [ModulController::class, 'index'])->name('data-modul');
+Route::get('/create-modul', [ModulController::class, 'create'])->name('create-modul');
+Route::post('/create-modul', [ModulController::class, 'store'])->name('store-modul');
+Route::get('/edit-modul/{id_module}', [ModulController::class, 'edit'])->name('edit-modul');
+Route::put('/update-modul/{id_module}', [ModulController::class, 'update'])->name('update-modul');
+Route::post('/delete-modul/{id_module}', [ModulController::class, 'destroy'])->name('delete-modul');
 
-Route::view('/data-kategori', 'data-kategori')->name('data-kategori');
+// Route::post('/store-modul', [ModulController::class, 'store'])->name('store-modul');
+
+
 Route::view('/tambah-kategori', 'create-kategori')->name('create-kategori');
+
+Route::get('/data-kategori', [CategoryController::class, 'index'])->name('data-kategori');
+Route::get('/create-kategori', [CategoryController::class, 'create'])->name('create-kategori');
+Route::post('/create-kategori', [CategoryController::class, 'store'])->name('store-kategori');
+Route::get('/edit-kategori/{id_category}', [CategoryController::class, 'edit'])->name('edit-kategori');
+Route::put('/update-kategori/{id_category}', [CategoryController::class, 'update'])->name('update-kategori');
+Route::post('/delete-kategori/{id_category}', [CategoryController::class, 'destroy'])->name('delete-kategori');
+
+// Route::get('/kategori/dashboard', [CategoryController::class, 'dashboard'])->name('kategori-dashboard');
+
+
 
 Route::view('/data-video', 'data-video')->name('data-video');
 Route::view('/tambah-video', 'create-video')->name('create-video');
+
+Route::get('/data-video', [VideoController::class, 'index'])->name('data-video');
+Route::get('/create-video', [VideoController::class, 'create'])->name('create-video');
+Route::post('/create-video', [VideoController::class, 'store'])->name('store-video');
+Route::get('/edit-video/{id_video}', [VideoController::class, 'edit'])->name('edit-video');
+Route::put('/update-video/{id_video}', [VideoController::class, 'update'])->name('update-video');
+Route::delete('/delete-video/{id_video}', [VideoController::class, 'destroy'])->name('delete-video');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

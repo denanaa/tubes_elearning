@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id('id_category'); // id_category (Primary Key) - Big Integer
-            $table->string('image_category')->nullable(); // image_category - Varchar (nullable)
-            $table->string('name_category', 100); // name_category - Varchar (max length 100)
-            $table->text('description_category')->nullable(); // description_category - Text (nullable)
-            $table->timestamps(); // created_at and updated_at - Timestamps
-    
+            $table->id('id_category');
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->timestamps();
         });
+        
     }
 
     /**

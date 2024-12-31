@@ -1,26 +1,30 @@
 @extends('layouts.app')
 
-@section('title', 'Add Data Kategori')
-@section('header', 'Add Data Kategori')
+@section('title', 'Add Data Category')
+@section('header', 'Add Data Category')
 
 @section('content')
 <div class="container">
-    <form>
-        <div class="my-4 space-y-1">
-            <label for="editName" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name</label>
-            <input type="text" id="editName" name="name" class="flex w-full max-w-xs h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="name">
-        </div>       
-        <div class="my-4 space-y-1">
-            <label for="editEmail" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email</label>
-            <input type="email" id="editEmail" name="email" class="flex w-full max-w-xs h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="user@gmail.com">
-        </div>
-        <div class="my-4 space-y-1">
-            <label for="editRole" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Role</label>
-            <select id="editRole" name="role" class="flex w-full max-w-xs h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50">
-                <option value="Admin">Admin</option>
-                <option value="User">User</option>
-            </select>
-        </div>
+    <form action="{{ isset($category) ? route('update-kategori', $category->id_category) : route('store-kategori') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @if (isset($category))
+        @method('PUT')
+        @endif
+            <div class="my-4 space-y-1">
+                <label for="editImage" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Image Category</label>
+                <input type="file" id="editImage" name="image" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50">
+                @if (isset($category->image))
+                    <img src="{{ asset('storage/' . $category->image) }}" class="w-32 h-32 mt-2 object-cover rounded-lg">
+                @endif
+            </div>
+            <div class="my-4 space-y-1">
+                <label for="editName" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name Category</label>
+                <input type="text" id="editName" name="name" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" value="{{ $category->name ?? '' }}" placeholder="Name Category">
+            </div>
+            <div class="my-4 space-y-1">
+                <label for="editDescription" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Description Category</label>
+                <textarea type="text" id="editDescription" name="description" rows ="6" {{ $category->description ?? ''}} class="flex w-full px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Description Category"></textarea>
+            </div>
         <div class="flex justify-start">
             <button type="submit" class="mt-3 inline-flex w-full justify-center rounded-md bg-blue-500  px-3 py-2 text-sm font-semibold text-white shadow-sm ring-gray-300 hover:bg-blue-600 sm:mt-0 sm:w-auto">Save</button>
             <a href="{{ route('data-kategori') }}">
@@ -29,4 +33,22 @@
         </div>
     </form>
 </div>
+
+<script>
+    function previewImage(event) {
+        const imagePreview = document.getElementById('imagePreview');
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                imagePreview.src = reader.result;
+                imagePreview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.classList.add('hidden');
+        }
+    }
+</script>
+
 @endsection

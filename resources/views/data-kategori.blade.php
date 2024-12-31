@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Data Kategori')
-@section('header', 'Data Kategori')
+@section('title', 'Data Category')
+@section('header', 'Data Category')
 
 @section('content')
 <div class="flex items-center mb-4">
@@ -13,7 +13,7 @@
     </div>
     <input type="text" placeholder="Cari..." class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 ">
 </div>
-    <a href="{{ route('create-kategori') }}" class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 ml-4 focus:outline-none">Add Kategori</a>
+    <a href="{{ route('create-kategori') }}" class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 ml-4 focus:outline-none">Add Category</a>
 </div>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -24,13 +24,13 @@
                     No
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Name
+                    Image Category
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Email
+                    Name Category
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Role
+                    Description Category
                 </th>
                 <th scope="col" class="px-6 py-3 ">
                     Action
@@ -38,97 +38,51 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($categories as $category)
             <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
+                <td class="px-6 py-4">{{ $loop->iteration }}</td>
                 <td class="px-6 py-4">
-                    1
+                    <img src="{{ asset('storage/' . $category->image) }}" alt="Category Image" class="w-16 h-16 object-cover mx-auto rounded-lg">
                 </td>
+                <td class="px-6 py-4">{{ $category->name }}</td>
+                <td class="px-6 py-4 w-[30%] text-left">{{ $category->description }}</td>
                 <td class="px-6 py-4">
-                    John Doe
-                </td>
-                <td class="px-6 py-4">
-                    john@example.com
-                </td>
-                <td class="px-6 py-4">
-                    Admin
-                </td>
-                <td class="px-6 py-4">
-                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
-                        Edit
-                    </button>
-                    <button type="button" onclick="showDeleteModal('1')"  class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-            <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
-                <td class="px-6 py-4">
-                    1
-                </td>
-                <td class="px-6 py-4">
-                    John Doe
-                </td>
-                <td class="px-6 py-4">
-                    john@example.com
-                </td>
-                <td class="px-6 py-4">
-                    Admin
-                </td>
-                <td class="px-6 py-4">
-                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
-                        Edit
-                    </button>
-                    <button type="button" onclick="showDeleteModal('1')" class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-            <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
-                <td class="px-6 py-4">
-                    1
-                </td>
-                <td class="px-6 py-4">
-                    John Doe
-                </td>
-                <td class="px-6 py-4">
-                    john@example.com
-                </td>
-                <td class="px-6 py-4">
-                    Admin
-                </td>
-                <td class="px-6 py-4">
-                    <button type="button" onclick="showEditModal('1', 'John Doe', 'john@example.com', 'Admin')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">
-                        Edit
-                    </button>
-                    <button type="button" onclick="showDeleteModal('1')"  class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">
-                        Delete
-                    </button>
+                    <a href="{{ route('edit-kategori', $category->id_category) }}" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">Edit</a>
+            <form action="{{ route('delete-kategori', $category->id_category) }}" method="POST" class="inline">
+                @csrf
+                <button type="submit" class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">Delete</button>
+            </form>
                 </td>
             </tr> 
+            @endforeach
     </tbody>
 </table>
 </div>
 
+
+@foreach ($categories as $category)
 <!-- Modal Edit -->
 <div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
     <div class="bg-white p-6  w-[90%] max-w-lg border rounded-lg shadow-sm bg-card text-neutral-900">
-        <h3 class="text-base font-semibold text-gray-90 mb-4">Edit Data Kategori</h3>
-        <p class="mb-4 text-sm text-gray-500">Update kategori details here. Click 'Save' to apply changes or 'Cancel' to discard them..</p>
-        <form>
+        <h3 class="text-base font-semibold text-gray-90 mb-4">Edit Data Category</h3>
+        <p class="mb-4 text-sm text-gray-500">Update category details here. Click 'Save' to apply changes or 'Cancel' to discard them..</p>
+        <form action="{{ route('update-kategori', ['id_category' => $category->id_category]) }}" method="POST">
+            @csrf
+            @method('PUT') 
             <input type="hidden" id="editId" name="id" value="">
             <div class="my-4 space-y-1">
-                <label for="editName" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name</label>
-                <input type="text" id="editName" name="name" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Nama User">
+                <label for="editImage" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Image Category</label>
+                <input type="file" id="editImage" name="image" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Image Category" accept="images/*"
+        onchange="previewImage(event)">
+                <img id="imagePreview" src="" alt="Image Preview" class="w-32 h-32 mt-2 object-cover rounded-lg hidden">
             </div>
             <div class="my-4 space-y-1">
-                <label for="editEmail" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email</label>
-                <input type="email" id="editEmail" name="email" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Email User">
+                <label for="editName" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name Category</label>
+                <input type="text" id="editName" name="name" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Name Category">
             </div>
             <div class="my-4 space-y-1">
-                <label for="editRole" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Role</label>
-                <select id="editRole" name="role" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50">
-                    <option value="Admin">Admin</option>
-                    <option value="User">User</option>
-                </select>
+                <label for="editDescription" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Description Category</label>
+                <textarea type="text" id="editDescription" name="description" rows ="6" class="flex w-full px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Description Category"></textarea>
             </div>
             <div class="flex justify-end">
                 <button type="button" onclick="hideEditModal()" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
@@ -137,6 +91,7 @@
         </form>
     </div>
 </div>
+@endforeach
 
 <!-- Modal Hapus -->
 <div id="deleteModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
@@ -154,11 +109,33 @@
 </div>
 
 <script>
-    function showEditModal(id, name, email, role) {
+    function previewImage(event) {
+        const imagePreview = document.getElementById('imagePreview');
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                imagePreview.src = reader.result;
+                imagePreview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.classList.add('hidden');
+        }
+    }
+
+    function showEditModal(id, image, name, description) {
         document.getElementById('editId').value = id;
         document.getElementById('editName').value = name;
-        document.getElementById('editEmail').value = email;
-        document.getElementById('editRole').value = role;
+        document.getElementById('editDescription').value = description;
+
+        const imagePreview = document.getElementById('imagePreview');
+        if (image) {
+            imagePreview.src = image;
+            imagePreview.classList.remove('hidden');
+        } else {
+            imagePreview.classList.add('hidden');
+        }
         document.getElementById('editModal').classList.remove('hidden');
     }
 

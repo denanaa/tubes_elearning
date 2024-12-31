@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->id('id_module'); // id_module (Primary Key) - Big Integer
             $table->unsignedBigInteger('id_category'); // id_category (Foreign Key) - Unsigned Big Integer
-            $table->string('name_module', 100); // name_module - Varchar (max length 100)
+            $table->string('name_module'); // name_module - Varchar (max length 100)
             $table->timestamps(); // created_at and updated_at - Timestamps
 
             // Foreign key relation to categories table
-            $table->foreign('id_category')->references('id_category')->on('categories')->onDelete('cascade');
+            $table->foreign('id_category')
+            ->references('id_category')
+            ->on('categories')
+            ->onDelete('cascade');
 
         });
     }
