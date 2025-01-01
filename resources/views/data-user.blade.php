@@ -70,7 +70,7 @@
 <div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
     <div class="bg-white p-6  w-[90%] max-w-lg border rounded-lg shadow-sm bg-card text-neutral-900">
         <h3 class="text-base font-semibold text-gray-90 mb-4">Edit Data User</h3>
-        <form action="{{ route('update-user', '') }}" method="POST" id="editForm">
+        <form action="{{ route('update-user', '' ) }}" method="POST" id="editForm">
             @csrf
             <input type="hidden" id="editId" name="id" value="">
             <div class="my-4 space-y-1">
@@ -90,7 +90,7 @@
             </div>
             <div class="flex justify-end">
                 <button type="button" onclick="hideEditModal()" class="bg-white text-gray-900 px-3 py-2 rounded-md">Cancel</button>
-                <button type="submit" class="bg-blue-400 text-white px-3 py-2 rounded-md">Save</button>
+                <button type="submit" class="inline-flex w-full justify-center rounded-md bg-blue-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 sm:ml-3 sm:w-auto">Save</button>
             </div>
         </form>
     </div>
