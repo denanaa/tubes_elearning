@@ -47,6 +47,12 @@ Route::post('/create-user', [UserController::class, 'store'])->name('store-user'
 Route::get('/edit-user/{id}', [UserController::class, 'edit'])->name('edit-user');
 Route::post('/update-user/{id}', [UserController::class, 'update'])->name('update-user');
 Route::post('/delete-user/{id}', [UserController::class, 'destroy'])->name('delete-user');
+Route::get('/search-user', [UserController::class, 'search'])->name('search-user');
+Route::get('/live-search-user', [UserController::class, 'liveSearch'])->name('live-search-user');
+Route::get('/load-all-users', [UserController::class, 'loadAllUsers'])->name('load-all-users');
+
+
+
 
 
 
@@ -58,6 +64,9 @@ Route::post('/create-modul', [ModulController::class, 'store'])->name('store-mod
 Route::get('/edit-modul/{id_module}', [ModulController::class, 'edit'])->name('edit-modul');
 Route::put('/update-modul/{id_module}', [ModulController::class, 'update'])->name('update-modul');
 Route::post('/delete-modul/{id_module}', [ModulController::class, 'destroy'])->name('delete-modul');
+Route::get('/search-modul', [ModulController::class, 'search'])->name('search-modul');
+Route::get('/live-search-modul', [ModulController::class, 'liveSearch'])->name('live-search-modul');
+Route::get('/load-all-modules', [ModulController::class, 'loadAllModules'])->name('load-all-modules');
 
 // Route::post('/store-modul', [ModulController::class, 'store'])->name('store-modul');
 
@@ -70,13 +79,15 @@ Route::post('/create-kategori', [CategoryController::class, 'store'])->name('sto
 Route::get('/edit-kategori/{id_category}', [CategoryController::class, 'edit'])->name('edit-kategori');
 Route::put('/update-kategori/{id_category}', [CategoryController::class, 'update'])->name('update-kategori');
 Route::post('/delete-kategori/{id_category}', [CategoryController::class, 'destroy'])->name('delete-kategori');
+Route::get('/live-search-category', [CategoryController::class, 'liveSearch'])->name('live-search-category');
+Route::get('/load-all-categories', [CategoryController::class, 'loadAllCategories'])->name('load-all-categories');
 
 // Route::get('/kategori/dashboard', [CategoryController::class, 'dashboard'])->name('kategori-dashboard');
 
 
 
-Route::view('/data-video', 'data-video')->name('data-video');
-Route::view('/tambah-video', 'create-video')->name('create-video');
+// Route::view('/data-video', 'data-video')->name('data-video');
+// Route::view('/tambah-video', 'create-video')->name('create-video');
 
 Route::get('/data-video', [VideoController::class, 'index'])->name('data-video');
 Route::get('/create-video', [VideoController::class, 'create'])->name('create-video');

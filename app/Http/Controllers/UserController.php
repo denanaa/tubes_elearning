@@ -60,4 +60,48 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('data-user')->with('success', 'User deleted successfully.');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query'); // Ambil query dari input form
+    
+        // Cek jika query tidak kosong
+        if ($query) {
+            $users = User::where('name', 'like', "%{$query}%") // Cari nama yang mengandung query
+                         ->orWhere('email', 'like', "%{$query}%")
+                         ->paginate(10); // Gunakan pagination
+        } else {
+            $users = User::paginate(10); // Jika tidak ada query, tampilkan semua user
+        }
+    
+        // Kembalikan view dengan hasil pencarian
+        return view('data-user', compact('users', 'query'));
+    }
+    
+
+    public function liveSearch(Request $request)
+    {
+        $query = $request->input('query'); // Ambil query dari input AJAX
+    
+        // Cari nama atau email yang mengandung query
+        if ($query) {
+            $users = User::where('name', 'like', "%{$query}%")
+                         ->orWhere('email', 'like', "%{$query}%")
+                         ->get(); // Ambil semua hasil tanpa pagination
+        } else {
+            $users = []; // Jika query kosong, kembalikan array kosong
+        }
+    
+        // Kembalikan hasil dalam format JSON
+        return response()->json($users);
+    }    
+
+    public function loadAllUsers()
+    {
+    $users = User::all(); // Ambil semua data pengguna
+    return response()->json($users);
+    }
+
+
+
 }
