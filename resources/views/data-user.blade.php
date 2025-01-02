@@ -82,7 +82,7 @@
     <div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
         <div class="bg-white p-6  w-[90%] max-w-lg border rounded-lg shadow-sm bg-card text-neutral-900">
             <h3 class="text-base font-semibold text-gray-90 mb-4">Edit Data User</h3>
-            <form action="{{ route('update-user', '') }}" method="POST" id="editForm">
+            <form action="{{ route('update-user', $user->id ) }}" method="POST" id="editForm">
                 @csrf
                 <input type="hidden" id="editId" name="id" value="">
                 <div class="my-4 space-y-1">
@@ -129,14 +129,15 @@
     </div>
 
     <script>
-        // Show modal edit and populate form with data
         function showEditModal(id, name, email, role) {
+            console.log(id, name, email, role);  // Cek data yang dikirim
             document.getElementById('editId').value = id;
             document.getElementById('editName').value = name;
             document.getElementById('editEmail').value = email;
             document.getElementById('editRole').value = role;
             document.getElementById('editModal').classList.remove('hidden');
         }
+
 
         // Hide edit modal
         function hideEditModal() {

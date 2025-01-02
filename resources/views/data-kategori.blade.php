@@ -79,52 +79,43 @@
         </table>
     </div>
 
-    <!-- Modal Edit -->
-    <div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white p-6  w-[90%] max-w-lg border rounded-lg shadow-sm bg-card text-neutral-900">
-            <h3 class="text-base font-semibold text-gray-90 mb-4">Edit Data Category</h3>
-            <p class="mb-4 text-sm text-gray-500">Update category details here. Click 'Save' to apply changes or 'Cancel' to
-                discard them..</p>
-            <form action="{{ route('update-kategori', $category->id_category) }}" method="POST"
-                enctype="multipart/form-data">
-                @csrf
-                @method('PUT') <!-- Menggunakan PUT karena ini adalah operasi update -->
-                <input type="hidden" id="editId" name="id_category">
-                <div class="my-4 space-y-1">
-                    <label for="editImage"
-                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Image
-                        Category</label>
-                    <input type="file" id="editImage" name="image"
-                        class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50"
-                        placeholder="Image Category" accept="images/*" onchange="previewImage(event)">
-                    <img id="imagePreview" src="" alt="Image Preview"
-                        class="w-32 h-32 mt-2 object-cover rounded-lg hidden">
-                </div>
-                <div class="my-4 space-y-1">
-                    <label for="editName"
-                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name
-                        Category</label>
-                    <input type="text" id="editName" name="name"
-                        class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50"
-                        placeholder="Name Category">
-                </div>
-                <div class="my-4 space-y-1">
-                    <label for="editDescription"
-                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Description
-                        Category</label>
-                    <textarea type="text" id="editDescription" name="description" rows ="6"
-                        class="flex w-full px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50"
-                        placeholder="Description Category"></textarea>
-                </div>
-                <div class="flex justify-end">
+   <!-- Modal Edit -->
+<div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 w-[90%] max-w-lg border rounded-lg shadow-sm bg-card text-neutral-900">
+        <h3 class="text-base font-semibold text-gray-90 mb-4">Edit Data Category</h3>
+        <p class="mb-4 text-sm text-gray-500">Update category details here. Click 'Save' to apply changes or 'Cancel' to discard them.</p>
+        
+        <!-- Form action akan diatur dinamis oleh JavaScript -->
+        <form id="editCategoryForm" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT') <!-- Menggunakan PUT karena ini adalah operasi update -->
+            
+            <input type="hidden" id="editId" name="id">
+            <div class="my-4 space-y-1">
+                <label for="editImage" class="text-sm font-medium">Image Category</label>
+                <input type="file" id="editImage" name="image" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md"
+                    placeholder="Image Category" accept="image/*" onchange="previewImage(event)">
+                <img id="imagePreview" src="" alt="Image Preview" class="w-32 h-32 mt-2 object-cover rounded-lg hidden">
+            </div>
+
+            <div class="my-4 space-y-1">
+                <label for="editName" class="text-sm font-medium">Name Category</label>
+                <input type="text" id="editName" name="name" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md" placeholder="Name Category">
+            </div>
+            <div class="my-4 space-y-1">
+                <label for="editDescription" class="text-sm font-medium">Description Category</label>
+                <textarea id="editDescription" name="description" rows="6" class="flex w-full px-3 py-2 text-sm bg-white border rounded-md" placeholder="Description Category"></textarea>
+            </div>
+            
+            <div class="flex justify-end">
                     <button type="button" onclick="hideEditModal()"
                         class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
                     <button type="submit"
                         class="inline-flex w-full justify-center rounded-md bg-blue-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 sm:ml-3 sm:w-auto">Save</button>
                 </div>
-            </form>
-        </div>
+        </form>
     </div>
+</div>
 
     <!-- Modal Hapus -->
     <div id="deleteModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
@@ -144,32 +135,59 @@
     </div>
 
     <script>
+        // function previewImage(event) {
+        //     const file = event.target.files[0];
+        //     const reader = new FileReader();
+
+        //     reader.onload = function(e) {
+        //         document.getElementById('imagePreview').src = e.target.result;
+        //         document.getElementById('imagePreview').classList.remove('hidden');
+        //     }
+
+        //     if (file) {
+        //         reader.readAsDataURL(file);
+        //     }
+        // }
+
         function previewImage(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                document.getElementById('imagePreview').src = e.target.result;
-                document.getElementById('imagePreview').classList.remove('hidden');
+                const imagePreview = document.getElementById('imagePreview');
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        imagePreview.src = reader.result;
+                        imagePreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.classList.add('hidden');
+                }
             }
-
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
 
 
         function showEditModal(id, name, description, image) {
-            // Isi input dengan data yang dipilih
-            document.getElementById('editId').value = id;
-            document.getElementById('editName').value = name;
-            document.getElementById('editDescription').value = description;
-            // Untuk image, jika kamu ingin preview gambar, bisa ditambahkan logika berikut
-            document.getElementById('imagePreview').src = image ? '/storage/' + image : '';
+            document.getElementById('editId').value = id; // Pastikan ID yang benar dimasukkan
+            document.getElementById('editName').value = name; // Nama kategori yang benar
+            document.getElementById('editDescription').value = description; // Deskripsi yang benar
+            const imagePreview = document.getElementById('imagePreview');
+                if (image) {
+                    imagePreview.src = image;
+                    imagePreview.classList.remove('hidden');
+                } else {
+                    imagePreview.classList.add('hidden');
+                }
 
-            // Tampilkan modal
+            // Mengatur action form untuk update
+            const form = document.getElementById('editCategoryForm');
+            form.action = "{{ route('update-kategori', ':id') }}".replace(':id', id);
+
+
+            // Menampilkan modal
             document.getElementById('editModal').classList.remove('hidden');
         }
+
+
+
         // Fungsi untuk menyembunyikan modal jika batal
         function hideEditModal() {
             document.getElementById('editModal').classList.add('hidden');

@@ -54,8 +54,6 @@ Route::get('/load-all-users', [UserController::class, 'loadAllUsers'])->name('lo
 
 
 
-
-
 Route::view('/tambah-modul', 'create-modul')->name('create-modul');
 
 Route::get('/data-modul', [ModulController::class, 'index'])->name('data-modul');
