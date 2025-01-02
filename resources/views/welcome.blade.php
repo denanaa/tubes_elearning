@@ -45,7 +45,7 @@ foreach ($channels as $channelId) {
                     <h1 class="font-semibold text-4xl lg:text-7xl">Siap Belajar</h1>
                     <h1 class="font-semibold text-4xl text-[#37AFE1] mb-10 lg:text-7xl">Bahasa Inggris?</h1>
                     <p class="font-medium text-justify text-black/50 text-lg lg:text-left mb-8 leading-relaxed">Bersama BinaBahasa, belajar bahasa Inggris jadi lebih mudah dan menyenangkan. Klik tombol di bawah untuk mulai meningkatkan kemampuan Anda sekarang juga!</p>
-                    <a href="#" class="text-base font-semibold text-white bg-[#37AFE1] py-3 px-8 rounded-xl hover:bg-[#4CC9FE] transition duration-300 ease-in-out">Belajar Sekarang</a>
+                    <a href="{{ url('content') }}" class="text-base font-semibold text-white bg-[#37AFE1] py-3 px-8 rounded-xl hover:bg-[#4CC9FE] transition duration-300 ease-in-out">Belajar Sekarang</a>
                 </div>
                 {{-- Div Kanan --}}
                 <div class="w-full self-end px-4 lg:w-1/2 text-right">

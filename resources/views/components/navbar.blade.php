@@ -37,11 +37,11 @@
                 >
                     <ul class="block lg:flex lg:items-center lg:gap-8">
                         <li class="group">
-                            <a href="#home" class="text-base font-semibold text-black py-2 mx-8 flex group-hover:text-[#37AFE1]" :class="{ 'text-blue-500 border-b-2 border-blue-500': activePage === 'home' }"
+                            <a href="{{ url('welcome') }}" class="text-base font-semibold text-black py-2 mx-8 flex group-hover:text-[#37AFE1]" :class="{ 'text-blue-500 border-b-2 border-blue-500': activePage === 'home' }"
                             @click="activePage = 'home'">Home</a>
                         </li>
                         <li class="group">
-                            <a href="#content" class="text-base font-semibold text-black py-2 mx-8 flex group-hover:text-[#37AFE1]">Content</a>
+                            <a href="{{ url('content') }}" class="text-base font-semibold text-black py-2 mx-8 flex group-hover:text-[#37AFE1]">Content</a>
                         </li>
                         <li class="group">
                             @guest
