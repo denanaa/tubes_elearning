@@ -25,13 +25,13 @@
                 class="absolute py-5 bg-[#FAF6F2] shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none flex flex-col">
                 <ul class="block lg:flex lg:items-center lg:gap-8">
                     <li class="group">
-                        <a href="#home"
+                        <a href="{{ url('welcome') }}"
                             class="text-base font-semibold text-black py-2 mx-8 flex group-hover:text-[#37AFE1]"
                             :class="{ 'text-blue-500 border-b-2 border-blue-500': activePage === 'home' }"
                             @click="activePage = 'home'">Home</a>
                     </li>
                     <li class="group">
-                        <a href="#content"
+                        <a href="{{ url('content') }}"
                             class="text-base font-semibold text-black py-2 mx-8 flex group-hover:text-[#37AFE1]">Content</a>
                     </li>
                     <li class="group">
