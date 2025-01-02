@@ -177,7 +177,7 @@ foreach ($channels as $channelId) {
             <?php foreach ($channelData as $channel): ?>
                 <div style="display: flex; align-items: center; max-width: 100%; margin-bottom: 1rem; gap: 1rem; padding: 1rem;">
                     <!-- Gambar -->
-                    <img src="{{ asset('images/.png') }}" alt="Profile Picture"
+                    <img src="<?= $channel['profilePic']; ?>" alt="Profile Picture"
                          style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
                     <!-- Teks -->
                     <div>
