@@ -44,10 +44,7 @@
                             <div x-data="{ open: false }" @click.outside="open=false" class="relative text-sm py-2 pr-4">
                                 <button @click="open=!open"
                                     class="inline-flex items-center justify-start px-3 py-1 mx-8 lg:mx-0 bg-white border rounded-lg shadow-sm hover:bg-gray-100 active:bg-gray-200 focus:outline-none focus:ring-1 border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
-
-                                    <!-- Foto Profil -->
-                                    <img src="{{ Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('default_profile.png') }}"
-                                        alt="Profile" class="w-6 h-6 rounded-full border border-gray-300 object-cover" />
+                                    
 
                                     <!-- Nama Pengguna -->
                                     <span class="ml-2 text-gray-800 text-sm font-medium leading-none whitespace-nowrap">
