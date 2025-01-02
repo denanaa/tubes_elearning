@@ -8,17 +8,15 @@ use App\Models\User;
 
 class AdminSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // Menambahkan admin ke tabel users
         User::create([
             'name' => 'Admin Bina Bahasa',
-            'email' => 'adminbinabahasa@example.com', // Ganti dengan email yang diinginkan
-            'password' => Hash::make('password123'), // Ganti dengan password yang diinginkan
-            'role' => 'admin', // Menetapkan role sebagai admin
+            'email' => 'adminbinabahasa@example.com',
+            'password' => Hash::make('password123'),
+            'role' => 'admin', // Pastikan ini sesuai dengan nilai yang diizinkan
+            'google_token' => '', // Atau token lainnya jika diperlukan
         ]);
+        
     }
 }

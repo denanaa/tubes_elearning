@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriController;
 
-
+use App\Http\Controllers\Auth\SocialiteController;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
@@ -127,5 +127,9 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name
 Route::get('/materi/{type}', [MateriController::class, 'show']);
 
 Route::get('/video/{type}', [VideoController::class, 'show']);
+
+Route::get('/auth/redirect', [SocialiteController::class, 'redirect']);
+
+Route::get('/auth/google/callback', [SocialiteController::class, 'redirect']);
 
 require __DIR__.'/auth.php';
