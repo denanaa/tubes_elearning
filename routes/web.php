@@ -93,6 +93,9 @@ Route::post('/create-video', [VideoController::class, 'store'])->name('store-vid
 Route::get('/edit-video/{id_video}', [VideoController::class, 'edit'])->name('edit-video');
 Route::put('/update-video/{id_video}', [VideoController::class, 'update'])->name('update-video');
 Route::delete('/delete-video/{id_video}', [VideoController::class, 'destroy'])->name('delete-video');
+Route::get('/search-video', [VideoController::class, 'search'])->name('search-video');
+Route::get('/live-search-video', [VideoController::class, 'liveSearch'])->name('live-search-video');
+Route::get('/load-all-videos', [VideoController::class, 'loadAllVideos'])->name('load-all-videos');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

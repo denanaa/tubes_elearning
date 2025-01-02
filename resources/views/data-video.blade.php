@@ -4,22 +4,32 @@
     @section('header', 'Data Video')
 
     @section('content')
-        <div class="flex items-center mb-4">
-            <div class="relative">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
-                </div>
-                <input type="text" placeholder="Cari..."
-                    class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 ">
+    <div class="flex items-center mb-4">
+        <div class="relative w-60">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none z-10">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>
             </div>
-            <a href="{{ route('create-video') }}"
-                class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 ml-4 focus:outline-none">Add
-                Video</a>
+            <form action="{{ route('search-user') }}" method="GET">
+                <div class="relative">
+                    <input id="search" type="text" name="query" value="{{ request('query') }}" placeholder="Cari..."
+                        class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                        autocomplete="off" />
+                    <button type="submit"
+                        class="absolute inset-y-0 end-0 px-3 text-white bg-blue-500 rounded-r-lg hover:bg-blue-600">
+                        Search
+                    </button>
+                </div>
+            </form>
         </div>
+        <!-- Pindahkan tombol "Add User" ke paling kanan dengan menambahkan ml-auto -->
+        <a href="{{ route('create-video') }}"
+            class="ml-auto text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none mb-2">Add
+            Video</a>
+    </div>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -50,7 +60,7 @@
                 </thead>
                 <tbody>
                     @foreach ($videos as $index => $video)
-                        <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
+                        <tr class="text-center">
                             <td class="px-6 py-4">
                                 {{ $index + 1 }}
                             </td>
@@ -66,7 +76,7 @@
                                 <img src="{{ asset('storage/' . $video->thumbnail_video) }}" alt="Thumbnail"
                                     class="w-24 h-16 object-cover mx-auto rounded-lg">
                             </td>
-                            <td class="px-6 py-4 w-[30%] text-left">
+                            <td class="px-6 py-4">
                                 {{ $video->description_video }}
                             </td>
                             <td class="px-6 py-4">
@@ -231,5 +241,63 @@
             function hideDeleteModal(id) {
                 document.getElementById('deleteModal-' + id).classList.add('hidden');
             }
+
+            document.getElementById('search').addEventListener('keyup', function() {
+    const query = this.value;
+
+    if (query.length > 0) {
+        fetch("{{ route('live-search-video') }}?query=" + query)
+            .then(response => response.json())
+            .then(data => {
+                let results = '';
+                if (data.length > 0) {
+                    data.forEach(video => {
+                        results += `
+                            <tr class="text-center">
+                                <td class="px-6 py-4">${video.id_video}</td>
+                                <td class="px-6 py-4">${video.id_module}</td>
+                                <td class="px-6 py-4">${video.title_video}</td>
+                                <td class="px-6 py-4">
+                                    <a href="${video.link_video}" class="underline text-blue-600 hover:text-blue-300">${video.link_video}</a>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <img src="{{ asset('storage') }}/${video.thumbnail_video}" alt="Thumbnail" class="w-16 h-16 object-cover mx-auto rounded-lg">
+                                </td>
+                                <td class="px-6 py-4">${video.description_video}</td>
+                                <td class="px-6 py-4">
+                                    <button onclick="showEditModal('${video.id_video}', '${video.id_module}', '${video.title_video}', '${video.link_video}', '{{ asset('storage') }}/${video.thumbnail_video}', '${video.description_video}')"
+                                        class="bg-green-500 text-white text-xs hover:bg-green-600 px-4 py-0.5 rounded">Edit</button>
+                                    <button onclick="showDeleteModal('${video.id_video}')"
+                                        class="bg-red-500 text-white text-xs hover:bg-red-600 px-2.5 py-0.5 rounded">Delete</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                } else {
+                    results = '<tr><td colspan="7" class="text-center p-4">No videos found</td></tr>';
+                }
+                document.querySelector('tbody').innerHTML = results;
+            })
+            .catch(error => {
+                document.querySelector('tbody').innerHTML =
+                    '<tr><td colspan="7" class="text-center p-4 text-red-500">Error occurred</td></tr>';
+            });
+    } else {
+        // Mengembalikan data awal
+        fetch("{{ route('data-video') }}")
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const tbody = doc.querySelector('tbody').innerHTML;
+                document.querySelector('tbody').innerHTML = tbody;
+            })
+            .catch(error => {
+                document.querySelector('tbody').innerHTML =
+                    '<tr><td colspan="7" class="text-center p-4 text-red-500">Error occurred</td></tr>';
+            });
+    }
+});
+
         </script>
     @endsection

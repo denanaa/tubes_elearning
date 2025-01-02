@@ -208,65 +208,37 @@
             const query = this.value;
 
             // Start live search only if the input length is greater than 1 character
-            if (query.length > 0) {
-                fetch("{{ route('live-search-category') }}?query=" + query)
-                    .then(response => response.json())
-                    .then(data => {
-                        let results = '';
-                        if (data.length > 0) {
-                            data.forEach(category => {
-                                results += `
-                            <tr class="text-center">
-                                <td class="px-6 py-4">${category.id_category}</td>
-                                <td class="px-6 py-4">
-                                    <img src="{{ asset('storage') }}/${category.image}" alt="Category Image" class="w-16 h-16 object-cover mx-auto rounded-lg">
-                                </td>
-                                <td class="px-6 py-4">${category.name}</td>
-                                <td class="px-6 py-4">${category.description}</td>
-                                <td class="px-6 py-4">
-                                    <button onclick="showEditModal('${category.id_category}', '${category.name}', '${category.description}', '${category.image}')"
-                                            class="bg-green-500 text-white text-xs hover:bg-green-600 px-4 py-0.5 rounded">Edit</button>
-                                    <form action="{{ route('delete-kategori', '') }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        <button type="submit" class="bg-red-500 text-white text-xs hover:bg-red-600 px-2.5 py-0.5 rounded">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        `;
-                            });
-                        } else {
-                            results =
-                                '<tr><td colspan="5" class="text-center p-4">No categories found</td></tr>';
-                        }
-                        document.querySelector('tbody').innerHTML = results;
-                    })
-                    .catch(error => {
-                        document.querySelector('tbody').innerHTML =
-                            '<tr><td colspan="5" class="text-center p-4 text-red-500">Error occurred</td></tr>';
+            document.getElementById('search').addEventListener('keyup', function () {
+    const query = this.value;
+
+    if (query.length > 0) {
+        fetch("{{ route('live-search-modul') }}?query=" + query)
+            .then(response => response.json())
+            .then(data => {
+                let results = '';
+                if (data.length > 0) {
+                    data.forEach(modul => {
+                        results += `
+                        <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
+                            <td class="px-6 py-4">${modul.id_module}</td>
+                            <td class="px-6 py-4">${modul.category.name}</td>
+                            <td class="px-6 py-4">${modul.name_module}</td>
+                            <td class="px-6 py-4">...</td>
+                        </tr>`;
                     });
-            } else {
-                // Show all categories when search is cleared
-                document.querySelector('tbody').innerHTML = `
-            @foreach ($categories as $index => $category)
-            <tr class="text-center">
-                <td class="px-6 py-4">{{ $index + 1 }}</td>
-                <td class="px-6 py-4">
-                    <img src="{{ asset('storage') }}/{{ $category->image }}" alt="Category Image" class="w-16 h-16 object-cover mx-auto rounded-lg">
-                </td>
-                <td class="px-6 py-4">{{ $category->name }}</td>
-                <td class="px-6 py-4">{{ $category->description }}</td>
-                <td class="px-6 py-4">
-                    <button onclick="showEditModal('{{ $category->id_category }}', '{{ $category->name }}', '{{ $category->description }}', '{{ $category->image }}')" 
-                            class="bg-green-500 text-white text-xs hover:bg-green-600 px-4 py-0.5 rounded">Edit</button>
-                    <form action="{{ route('delete-kategori', $category->id_category) }}" method="POST" style="display:inline;">
-                        @csrf
-                        <button type="submit" class="bg-red-500 text-white text-xs hover:bg-red-600 px-2.5 py-0.5 rounded">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        `;
-            }
-        });
+                } else {
+                    results = '<tr><td colspan="4" class="text-center p-4">No modules found</td></tr>';
+                }
+                document.querySelector('#modul-table tbody').innerHTML = results;
+            })
+            .catch(error => {
+                document.querySelector('#modul-table tbody').innerHTML =
+                    '<tr><td colspan="4" class="text-center p-4 text-red-500">Error occurred</td></tr>';
+            });
+    } else {
+        document.querySelector('#modul-table tbody').innerHTML = '';
+    }
+});
+
     </script>
 @endsection

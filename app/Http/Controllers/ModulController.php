@@ -73,6 +73,7 @@ class ModulController extends Controller
 
         if ($query) {
             $modules = Modul::where('name_module', 'like', "%{$query}%")
+                            ->with('category') 
                             ->paginate(10);
         } else {
             $modules = Modul::paginate(10);

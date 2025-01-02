@@ -89,4 +89,33 @@ class VideoController extends Controller
         $video->delete();
         return redirect()->route('data-video')->with('success', 'Video deleted successfully.');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query'); // Ambil query dari input form
+    
+        if ($query) {
+            $videos = Video::where('title_video', 'like', "%{$query}%")->paginate(10);
+        } else {
+            $videos = Video::paginate(10);
+        }
+    
+        return view('data-video', compact('videos', 'query'));
+    }
+    
+
+    public function liveSearch(Request $request)
+    {
+        $query = $request->input('query');
+        $videos = Video::where('title_video', 'like', "%{$query}%")->get();
+    
+        return response()->json($videos);
+    }
+    
+    
+    public function loadAllVideos()
+    {
+        $videos = Video::all();
+        return response()->json($videos);
+    }
 }
