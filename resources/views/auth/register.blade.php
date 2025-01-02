@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="max-w-lg mx-auto p-8 bg-white rounded-lg">
         <div class="text-center mb-6">
-            <img src="/path/to/logo.png" alt="Logo" class="w-16 mx-auto">
+            <img src="{{ asset('images/logobinabhs.png') }}" alt="Logo" class=" w-20 mx-auto">
             <h1 class="text-2xl font-bold text-gray-700">Register</h1>
             <p class="text-gray-500">Buat akun untuk masuk.</p>
         </div>
