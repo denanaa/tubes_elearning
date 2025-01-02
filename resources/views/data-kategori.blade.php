@@ -79,43 +79,48 @@
         </table>
     </div>
 
-   <!-- Modal Edit -->
-<div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
-    <div class="bg-white p-6 w-[90%] max-w-lg border rounded-lg shadow-sm bg-card text-neutral-900">
-        <h3 class="text-base font-semibold text-gray-90 mb-4">Edit Data Category</h3>
-        <p class="mb-4 text-sm text-gray-500">Update category details here. Click 'Save' to apply changes or 'Cancel' to discard them.</p>
-        
-        <!-- Form action akan diatur dinamis oleh JavaScript -->
-        <form id="editCategoryForm" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT') <!-- Menggunakan PUT karena ini adalah operasi update -->
-            
-            <input type="hidden" id="editId" name="id">
-            <div class="my-4 space-y-1">
-                <label for="editImage" class="text-sm font-medium">Image Category</label>
-                <input type="file" id="editImage" name="image" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md"
-                    placeholder="Image Category" accept="image/*" onchange="previewImage(event)">
-                <img id="imagePreview" src="" alt="Image Preview" class="w-32 h-32 mt-2 object-cover rounded-lg hidden">
-            </div>
+    <!-- Modal Edit -->
+    <div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 w-[90%] max-w-lg border rounded-lg shadow-sm bg-card text-neutral-900">
+            <h3 class="text-base font-semibold text-gray-90 mb-4">Edit Data Category</h3>
+            <p class="mb-4 text-sm text-gray-500">Update category details here. Click 'Save' to apply changes or 'Cancel' to
+                discard them.</p>
 
-            <div class="my-4 space-y-1">
-                <label for="editName" class="text-sm font-medium">Name Category</label>
-                <input type="text" id="editName" name="name" class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md" placeholder="Name Category">
-            </div>
-            <div class="my-4 space-y-1">
-                <label for="editDescription" class="text-sm font-medium">Description Category</label>
-                <textarea id="editDescription" name="description" rows="6" class="flex w-full px-3 py-2 text-sm bg-white border rounded-md" placeholder="Description Category"></textarea>
-            </div>
-            
-            <div class="flex justify-end">
+            <!-- Form action akan diatur dinamis oleh JavaScript -->
+            <form id="editCategoryForm" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT') <!-- Menggunakan PUT karena ini adalah operasi update -->
+
+                <input type="hidden" id="editId" name="id">
+                <div class="my-4 space-y-1">
+                    <label for="editImage" class="text-sm font-medium">Image Category</label>
+                    <input type="file" id="editImage" name="image"
+                        class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md" placeholder="Image Category"
+                        accept="image/*" onchange="previewImage(event)">
+                    <img id="imagePreview" src="" alt="Image Preview"
+                        class="w-32 h-32 mt-2 object-cover rounded-lg hidden">
+                </div>
+
+                <div class="my-4 space-y-1">
+                    <label for="editName" class="text-sm font-medium">Name Category</label>
+                    <input type="text" id="editName" name="name"
+                        class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md" placeholder="Name Category">
+                </div>
+                <div class="my-4 space-y-1">
+                    <label for="editDescription" class="text-sm font-medium">Description Category</label>
+                    <textarea id="editDescription" name="description" rows="6"
+                        class="flex w-full px-3 py-2 text-sm bg-white border rounded-md" placeholder="Description Category"></textarea>
+                </div>
+
+                <div class="flex justify-end">
                     <button type="button" onclick="hideEditModal()"
                         class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
                     <button type="submit"
                         class="inline-flex w-full justify-center rounded-md bg-blue-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 sm:ml-3 sm:w-auto">Save</button>
                 </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
     <!-- Modal Hapus -->
     <div id="deleteModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
@@ -150,19 +155,19 @@
         // }
 
         function previewImage(event) {
-                const imagePreview = document.getElementById('imagePreview');
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                        imagePreview.src = reader.result;
-                        imagePreview.classList.remove('hidden');
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    imagePreview.classList.add('hidden');
-                }
+            const imagePreview = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    imagePreview.src = reader.result;
+                    imagePreview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.classList.add('hidden');
             }
+        }
 
 
         function showEditModal(id, name, description, image) {
@@ -170,12 +175,12 @@
             document.getElementById('editName').value = name; // Nama kategori yang benar
             document.getElementById('editDescription').value = description; // Deskripsi yang benar
             const imagePreview = document.getElementById('imagePreview');
-                if (image) {
-                    imagePreview.src = image;
-                    imagePreview.classList.remove('hidden');
-                } else {
-                    imagePreview.classList.add('hidden');
-                }
+            if (image) {
+                imagePreview.src = image;
+                imagePreview.classList.remove('hidden');
+            } else {
+                imagePreview.classList.add('hidden');
+            }
 
             // Mengatur action form untuk update
             const form = document.getElementById('editCategoryForm');
@@ -203,42 +208,71 @@
             document.getElementById('deleteModal').classList.add('hidden');
         }
 
+
         // Live search functionality for categories
         document.getElementById('search').addEventListener('keyup', function() {
             const query = this.value;
 
             // Start live search only if the input length is greater than 1 character
-            document.getElementById('search').addEventListener('keyup', function () {
-    const query = this.value;
-
-    if (query.length > 0) {
-        fetch("{{ route('live-search-modul') }}?query=" + query)
-            .then(response => response.json())
-            .then(data => {
-                let results = '';
-                if (data.length > 0) {
-                    data.forEach(modul => {
-                        results += `
-                        <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
-                            <td class="px-6 py-4">${modul.id_module}</td>
-                            <td class="px-6 py-4">${modul.category.name}</td>
-                            <td class="px-6 py-4">${modul.name_module}</td>
-                            <td class="px-6 py-4">...</td>
-                        </tr>`;
+            if (query.length > 0) {
+                fetch("{{ route('live-search-category') }}?query=" + query)
+                    .then(response => response.json())
+                    .then(data => {
+                        let results = '';
+                        if (data.length > 0) {
+                            data.forEach(category => {
+                                results += `
+                            <tr class="text-center">
+                                <td class="px-6 py-4">${category.id_category}</td>
+                                <td class="px-6 py-4">
+                                    <img src="{{ asset('storage') }}/${category.image}" alt="Category Image" class="w-16 h-16 object-cover mx-auto rounded-lg">
+                                </td>
+                                <td class="px-6 py-4">${category.name}</td>
+                                <td class="px-6 py-4">${category.description}</td>
+                                <td class="px-6 py-4">
+                                    <button onclick="showEditModal('${category.id_category}', '${category.name}', '${category.description}', '${category.image}')"
+                                            class="bg-green-500 text-white text-xs hover:bg-green-600 px-4 py-0.5 rounded">Edit</button>
+                                    <form action="{{ route('delete-kategori', '') }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        <button type="submit" class="bg-red-500 text-white text-xs hover:bg-red-600 px-2.5 py-0.5 rounded">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        `;
+                            });
+                        } else {
+                            results =
+                                '<tr><td colspan="5" class="text-center p-4">No categories found</td></tr>';
+                        }
+                        document.querySelector('tbody').innerHTML = results;
+                    })
+                    .catch(error => {
+                        document.querySelector('tbody').innerHTML =
+                            '<tr><td colspan="5" class="text-center p-4 text-red-500">Error occurred</td></tr>';
                     });
-                } else {
-                    results = '<tr><td colspan="4" class="text-center p-4">No modules found</td></tr>';
-                }
-                document.querySelector('#modul-table tbody').innerHTML = results;
-            })
-            .catch(error => {
-                document.querySelector('#modul-table tbody').innerHTML =
-                    '<tr><td colspan="4" class="text-center p-4 text-red-500">Error occurred</td></tr>';
-            });
-    } else {
-        document.querySelector('#modul-table tbody').innerHTML = '';
-    }
-});
-
+            } else {
+                // Show all categories when search is cleared
+                document.querySelector('tbody').innerHTML = `
+            @foreach ($categories as $index => $category)
+            <tr class="text-center">
+                <td class="px-6 py-4">{{ $index + 1 }}</td>
+                <td class="px-6 py-4">
+                    <img src="{{ asset('storage') }}/{{ $category->image }}" alt="Category Image" class="w-16 h-16 object-cover mx-auto rounded-lg">
+                </td>
+                <td class="px-6 py-4">{{ $category->name }}</td>
+                <td class="px-6 py-4">{{ $category->description }}</td>
+                <td class="px-6 py-4">
+                    <button onclick="showEditModal('{{ $category->id_category }}', '{{ $category->name }}', '{{ $category->description }}', '{{ $category->image }}')" 
+                            class="bg-green-500 text-white text-xs hover:bg-green-600 px-4 py-0.5 rounded">Edit</button>
+                    <form action="{{ route('delete-kategori', $category->id_category) }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="bg-red-500 text-white text-xs hover:bg-red-600 px-2.5 py-0.5 rounded">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        `;
+            }
+        });
     </script>
 @endsection

@@ -13,17 +13,14 @@
     <div class="flex h-full">
         <!-- Navigation -->
         <div x-data="{ showSidebar: false }" class="relative flex w-full flex-col md:flex-row">
-
             <nav x-cloak
-                class="fixed left-0 z-20 flex h-svh w-60 shrink-0 flex-col border-r border-neutral-300 bg-[#37AFE1] p-4 transition-transform duration-300 md:w-64 md:translate-x-0 md:relative"
+                class="fixed left-0 z-20 flex h-full w-60 shrink-0 flex-col border-r border-neutral-300 bg-[#37AFE1] p-4 transition-transform duration-300 md:w-64 md:translate-x-0 md:relative"
                 x-bind:class="showSidebar ? 'translate-x-0' : '-translate-x-60'" aria-label="sidebar navigation">
-                <!-- logo  -->
+                <!-- Logo -->
                 <div class="p-2 text-2xl font-bold mb-6 text-white">BinaBahasa</div>
 
-
-                <!-- sidebar links  -->
+                <!-- Sidebar links -->
                 <div class="flex flex-col gap-2 overflow-y-auto pb-6 my-8">
-
                     <a href="dashboard"
                         class="flex items-center rounded-md gap-2 px-2 py-1.5 text-sm font-medium text-white underline-offset-2 hover:bg-white hover:text-[#37AFE1] focus-visible:underline focus:outline-none">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -34,7 +31,7 @@
                         <span>Dashboard</span>
                     </a>
 
-                    <!-- collapsible item  -->
+                    <!-- Collapsible item -->
                     <div x-data="{ isExpanded: false }" class="flex flex-col">
                         <button type="button" x-on:click="isExpanded = ! isExpanded" id="user-management-btn"
                             aria-controls="user-management" x-bind:aria-expanded="isExpanded ? 'true' : 'false'"
@@ -79,6 +76,8 @@
                             </li>
                         </ul>
                     </div>
+
+                    <!-- Logout Link -->
                     <a href="{{ route('welcome') }}"
                         class="flex items-center rounded-md gap-2 px-2 py-1.5 text-sm font-medium text-white underline-offset-2 hover:bg-white hover:text-[#37AFE1] focus-visible:underline focus:outline-none">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"
@@ -96,6 +95,7 @@
                 <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
             </main>
         </div>
+    </div>
 </body>
 
 </html>

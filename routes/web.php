@@ -121,6 +121,9 @@ Route::get('/content', function () {
     return view('content');
 });
 
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+
 Route::get('/materi/{type}', [MateriController::class, 'show']);
 
 Route::get('/video/{type}', [VideoController::class, 'show']);
