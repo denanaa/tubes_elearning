@@ -54,3 +54,7 @@ Route::get('/content/{type}', [ContentController::class, 'show']);
 Route::get('/welcome/{type}', [WelcomeController::class, 'show']);
 
 require __DIR__.'/auth.php';
+
+Route::get('/content', [ContentController::class, 'index'])->name('content');
+Route::get('/materi', [MateriController::class, 'index'])->name('materi');
+Route::get('/materi/kategori/{categoryId}', [MateriController::class, 'showByCategory'])->name('materi.kategori');
