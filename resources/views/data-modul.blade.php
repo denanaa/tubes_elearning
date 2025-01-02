@@ -26,7 +26,7 @@
             </form>
         </div>
         <!-- Pindahkan tombol "Add User" ke paling kanan dengan menambahkan ml-auto -->
-        <a href="{{ route('create-modul') }}"
+        <a href="{{ route('create-kategori') }}"
             class="ml-auto text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none mb-2">Add
             Modul</a>
     </div>
