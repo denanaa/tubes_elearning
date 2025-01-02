@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\ContentController;
+use App\Http\Controllers\WelcomeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,5 +41,9 @@ Route::get('/content', function () {
 Route::get('/materi/{type}', [MateriController::class, 'show']);
 
 Route::get('/video/{type}', [VideoController::class, 'show']);
+
+Route::get('/content/{type}', [ContentController::class, 'show']);
+
+Route::get('/welcome/{type}', [WelcomeController::class, 'show']);
 
 require __DIR__.'/auth.php';
