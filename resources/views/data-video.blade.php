@@ -251,10 +251,11 @@
             .then(data => {
                 let results = '';
                 if (data.length > 0) {
-                    data.forEach(video => {
+                    // Start from 1 for numbering
+                    data.forEach((video, index) => {
                         results += `
                             <tr class="text-center">
-                                <td class="px-6 py-4">${video.id_video}</td>
+                                <td class="px-6 py-4">${index + 1}</td> <!-- Dynamic number -->
                                 <td class="px-6 py-4">${video.id_module}</td>
                                 <td class="px-6 py-4">${video.title_video}</td>
                                 <td class="px-6 py-4">
@@ -298,6 +299,7 @@
             });
     }
 });
+
 
         </script>
     @endsection

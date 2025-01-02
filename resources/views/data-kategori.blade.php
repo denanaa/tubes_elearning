@@ -61,7 +61,7 @@
                                 class="w-16 h-16 object-cover mx-auto rounded-lg">
                         </td>
                         <td class="px-6 py-4">{{ $category->name }}</td>
-                        <td class="px-6 py-4 w-[30%] text-left">{{ $category->description }}</td>
+                        <td class="px-6 py-4">{{ $category->description }}</td>
                         <td class="px-6 py-4">
                             <a href="javascript:void(0)"
                                 onclick="showEditModal({{ $category->id_category }}, '{{ $category->name }}', '{{ $category->description }}', '{{ $category->image }}')"
@@ -209,21 +209,22 @@
         }
 
 
-        // Live search functionality for categories
-        document.getElementById('search').addEventListener('keyup', function() {
-            const query = this.value;
+// Live search functionality for categories
+document.getElementById('search').addEventListener('keyup', function() {
+    const query = this.value;
 
-            // Start live search only if the input length is greater than 1 character
-            if (query.length > 0) {
-                fetch("{{ route('live-search-category') }}?query=" + query)
-                    .then(response => response.json())
-                    .then(data => {
-                        let results = '';
-                        if (data.length > 0) {
-                            data.forEach(category => {
-                                results += `
+    // Start live search only if the input length is greater than 1 character
+    if (query.length > 0) {
+        fetch("{{ route('live-search-category') }}?query=" + query)
+            .then(response => response.json())
+            .then(data => {
+                let results = '';
+                if (data.length > 0) {
+                    // Start from 1 for numbering
+                    data.forEach((category, index) => {
+                        results += `
                             <tr class="text-center">
-                                <td class="px-6 py-4">${category.id_category}</td>
+                                <td class="px-6 py-4">${index + 1}</td> <!-- Dynamic number -->
                                 <td class="px-6 py-4">
                                     <img src="{{ asset('storage') }}/${category.image}" alt="Category Image" class="w-16 h-16 object-cover mx-auto rounded-lg">
                                 </td>
@@ -239,23 +240,23 @@
                                 </td>
                             </tr>
                         `;
-                            });
-                        } else {
-                            results =
-                                '<tr><td colspan="5" class="text-center p-4">No categories found</td></tr>';
-                        }
-                        document.querySelector('tbody').innerHTML = results;
-                    })
-                    .catch(error => {
-                        document.querySelector('tbody').innerHTML =
-                            '<tr><td colspan="5" class="text-center p-4 text-red-500">Error occurred</td></tr>';
                     });
-            } else {
-                // Show all categories when search is cleared
-                document.querySelector('tbody').innerHTML = `
+                } else {
+                    results =
+                        '<tr><td colspan="5" class="text-center p-4">No categories found</td></tr>';
+                }
+                document.querySelector('tbody').innerHTML = results;
+            })
+            .catch(error => {
+                document.querySelector('tbody').innerHTML =
+                    '<tr><td colspan="5" class="text-center p-4 text-red-500">Error occurred</td></tr>';
+            });
+    } else {
+        // Show all categories when search is cleared
+        document.querySelector('tbody').innerHTML = ` 
             @foreach ($categories as $index => $category)
             <tr class="text-center">
-                <td class="px-6 py-4">{{ $index + 1 }}</td>
+                <td class="px-6 py-4">{{ $loop->iteration }}</td> <!-- Keep server-side iteration when no search -->
                 <td class="px-6 py-4">
                     <img src="{{ asset('storage') }}/{{ $category->image }}" alt="Category Image" class="w-16 h-16 object-cover mx-auto rounded-lg">
                 </td>
@@ -272,7 +273,8 @@
             </tr>
             @endforeach
         `;
-            }
-        });
+    }
+});
+
     </script>
 @endsection

@@ -155,65 +155,67 @@
             document.getElementById('deleteModal').classList.add('hidden');
         }
 
-        // Live search functionality
-        document.getElementById('search').addEventListener('keyup', function() {
-            const query = this.value;
+ // Live search functionality
+document.getElementById('search').addEventListener('keyup', function() {
+    const query = this.value;
 
-            // Start live search only if the input length is greater than 1 character
-            if (query.length > 0) {
-                fetch("{{ route('live-search-user') }}?query=" + query)
-                    .then(response => response.json())
-                    .then(data => {
-                        let results = '';
-                        if (data.length > 0) {
-                            data.forEach(user => {
-                                results += `
-                                <tr class="text-center">
-                                    <td class="border px-6 py-4">${user.id}</td>
-                                    <td class="border px-6 py-4">${user.name}</td>
-                                    <td class="border px-6 py-4">${user.email}</td>
-                                    <td class="border px-6 py-4">${user.role}</td>
-                                    <td class="border px-6 py-4">
-                                        <button onclick="showEditModal('${user.id}', '${user.name}', '${user.email}', '${user.role}')"
-                                                class="bg-green-500 text-white text-xs hover:bg-green-600 px-4 py-0.5 rounded">Edit</button>
-                                        <form action="{{ route('delete-user', '') }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            <button type="submit" class="bg-red-500 text-white text-xs hover:bg-red-600 px-2.5 py-0.5 rounded">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            `;
-                            });
-                        } else {
-                            results = '<tr><td colspan="5" class="text-center p-4">No users found</td></tr>';
-                        }
-                        document.querySelector('tbody').innerHTML = results;
-                    })
-                    .catch(error => {
-                        document.querySelector('tbody').innerHTML =
-                            '<tr><td colspan="5" class="text-center p-4 text-red-500">Error occurred</td></tr>';
+    // Start live search only if the input length is greater than 1 character
+    if (query.length > 0) {
+        fetch("{{ route('live-search-user') }}?query=" + query)
+            .then(response => response.json())
+            .then(data => {
+                let results = '';
+                if (data.length > 0) {
+                    // Start from 1 for numbering
+                    data.forEach((user, index) => {
+                        results += `
+                            <tr class="text-center">
+                                <td class="px-6 py-4">${index + 1}</td> <!-- Dynamic number -->
+                                <td class="px-6 py-4">${user.name}</td>
+                                <td class="px-6 py-4">${user.email}</td>
+                                <td class="px-6 py-4">${user.role}</td>
+                                <td class="px-6 py-4">
+                                    <button onclick="showEditModal('${user.id}', '${user.name}', '${user.email}', '${user.role}')"
+                                            class="bg-green-500 text-white text-xs hover:bg-green-600 px-4 py-0.5 rounded">Edit</button>
+                                    <form action="{{ route('delete-user', '') }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        <button type="submit" class="bg-red-500 text-white text-xs hover:bg-red-600 px-2.5 py-0.5 rounded">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        `;
                     });
-            } else {
-                // Show all users when search is cleared
-                document.querySelector('tbody').innerHTML = `
-                @foreach ($users as $index => $user)
-                <tr class="text-center">
-                    <td class="px-6 py-4">{{ $index + 1 }}</td>
-                    <td class="px-6 py-4">{{ $user->name }}</td>
-                    <td class="px-6 py-4">{{ $user->email }}</td>
-                    <td class="px-6 py-4">{{ $user->role }}</td>
-                    <td class="px-6 py-4">
-                        <button onclick="showEditModal('{{ $user->id }}', '{{ $user->name }}', '{{ $user->email }}', '{{ $user->role }}')" 
-                                class="bg-green-500 text-white text-xs hover:bg-green-600 px-4 py-0.5 rounded">Edit</button>
-                        <form action="{{ route('delete-user', $user->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            <button type="submit" class="bg-red-500 text-white text-xs hover:bg-red-600 px-2.5 py-0.5 rounded">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            `;
-            }
-        });
+                } else {
+                    results = '<tr><td colspan="5" class="text-center p-4">No users found</td></tr>';
+                }
+                document.querySelector('tbody').innerHTML = results;
+            })
+            .catch(error => {
+                document.querySelector('tbody').innerHTML =
+                    '<tr><td colspan="5" class="text-center p-4 text-red-500">Error occurred</td></tr>';
+            });
+    } else {
+        // Show all users when search is cleared
+        document.querySelector('tbody').innerHTML = `
+            @foreach ($users as $index => $user)
+            <tr class="text-center">
+                <td class="px-6 py-4">{{ $loop->iteration }}</td> <!-- Keep server-side iteration when no search -->
+                <td class="px-6 py-4">{{ $user->name }}</td>
+                <td class="px-6 py-4">{{ $user->email }}</td>
+                <td class="px-6 py-4">{{ $user->role }}</td>
+                <td class="px-6 py-4">
+                    <button onclick="showEditModal('{{ $user->id }}', '{{ $user->name }}', '{{ $user->email }}', '{{ $user->role }}')" 
+                            class="bg-green-500 text-white text-xs hover:bg-green-600 px-4 py-0.5 rounded">Edit</button>
+                    <form action="{{ route('delete-user', $user->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="bg-red-500 text-white text-xs hover:bg-red-600 px-2.5 py-0.5 rounded">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        `;
+    }
+});
+
     </script>
 @endsection

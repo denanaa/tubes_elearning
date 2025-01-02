@@ -134,66 +134,67 @@
     </div>
 
     <script>
-        var categories = @json($categories); // Menyimpan kategori di JavaScript
+    var categories = @json($categories); // Menyimpan kategori di JavaScript
 
-        function showEditModal(id, name, categoryId) {
-            // Menampilkan modal dan mengisi data
-            document.getElementById('editId').value = id;
-            document.getElementById('editModulName').value = name;
+    function showEditModal(id, name, categoryId) {
+        // Menampilkan modal dan mengisi data
+        document.getElementById('editId').value = id;
+        document.getElementById('editModulName').value = name;
 
-            // Menambahkan opsi kategori ke dropdown
-            var categorySelect = document.getElementById('editCategory');
-            categorySelect.innerHTML = ''; // Kosongkan dropdown sebelum menambah data
+        // Menambahkan opsi kategori ke dropdown
+        var categorySelect = document.getElementById('editCategory');
+        categorySelect.innerHTML = ''; // Kosongkan dropdown sebelum menambah data
 
-            categories.forEach(function(category) {
-                var option = document.createElement("option");
-                option.value = category.id_category;
-                option.textContent = category.name;
-                if (category.id_category == categoryId) {
-                    option.selected = true; // Pilih kategori yang sesuai
-                }
-                categorySelect.appendChild(option);
-            });
+        categories.forEach(function(category) {
+            var option = document.createElement("option");
+            option.value = category.id_category;
+            option.textContent = category.name;
+            if (category.id_category == categoryId) {
+                option.selected = true; // Pilih kategori yang sesuai
+            }
+            categorySelect.appendChild(option);
+        });
 
-            // Menampilkan modal
-            document.getElementById('editModal').classList.remove('hidden');
+        // Menampilkan modal
+        document.getElementById('editModal').classList.remove('hidden');
 
-            // Update form action URL
-            var formAction = "{{ route('update-modul', ':id') }}".replace(':id', id);
-            document.getElementById('editForm').action = formAction;
-        }
+        // Update form action URL
+        var formAction = "{{ route('update-modul', ':id') }}".replace(':id', id);
+        document.getElementById('editForm').action = formAction;
+    }
 
-        function hideEditModal() {
-            document.getElementById('editModal').classList.add('hidden');
-        }
+    function hideEditModal() {
+        document.getElementById('editModal').classList.add('hidden');
+    }
 
+    function showDeleteModal(id) {
+        document.getElementById('deleteId').value = id;
+        document.getElementById('deleteModal').classList.remove('hidden');
+    }
 
-        function showDeleteModal(id) {
-            document.getElementById('deleteId').value = id;
-            document.getElementById('deleteModal').classList.remove('hidden');
-        }
+    function hideDeleteModal() {
+        document.getElementById('deleteModal').classList.add('hidden');
+    }
 
-        function hideDeleteModal() {
-            document.getElementById('deleteModal').classList.add('hidden');
-        }
+    document.getElementById('search').addEventListener('keyup', function() {
+    const query = this.value;
 
-        document.getElementById('search').addEventListener('keyup', function() {
-            const query = this.value;
-
-            if (query.length > 0) {
-                fetch("{{ route('live-search-modul') }}?query=" + query)
-                    .then(response => response.json())
-                    .then(data => {
-                        let results = '';
-                        if (data.length > 0) {
-                            data.forEach(modul => {
-                                results += `
+    if (query.length > 0) {
+        fetch("{{ route('live-search-modul') }}?query=" + query)
+            .then(response => response.json())
+            .then(data => {
+                let results = '';
+                if (data.length > 0) {
+                    // Start from 1 for numbering
+                    data.forEach((modul, index) => {
+                        results += `
                             <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
-                                <td class="px-6 py-4">${modul.id_module}</td>
+                                <td class="px-6 py-4">${index + 1}</td> <!-- Dynamic number -->
                                 <td class="px-6 py-4">${modul.category.name}</td>
                                 <td class="px-6 py-4">${modul.name_module}</td>
                                 <td class="px-6 py-4">
-                                    <a href="javascript:void(0)" onclick="showEditModal('${modul.id_module}', '${modul.name_module}', '${modul.id_category}')" class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">Edit</a>
+                                    <a href="javascript:void(0)" onclick="showEditModal('${modul.id_module}', '${modul.name_module}', '${modul.id_category}')"
+                                       class="bg-green-500 text-white text-xs hover:bg-green-600 font-medium me-2 px-4 py-0.5 rounded">Edit</a>
                                     <form action="{{ route('delete-modul', '') }}" method="POST" style="display: inline;">
                                         @csrf
                                         <button type="submit" class="bg-red-500 text-white text-xs hover:bg-red-600 font-medium me-2 px-2.5 py-0.5 rounded">Delete</button>
@@ -201,20 +202,33 @@
                                 </td>
                             </tr>
                         `;
-                            });
-                        } else {
-                            results = '<tr><td colspan="4" class="text-center p-4">No modules found</td></tr>';
-                        }
-                        document.querySelector('#modul-table tbody').innerHTML = results;
-                    })
-                    .catch(error => {
-                        document.querySelector('#modul-table tbody').innerHTML =
-                            '<tr><td colspan="4" class="text-center p-4 text-red-500">Error occurred</td></tr>';
                     });
-            } else {
-                // Handle when there's no query
-                document.querySelector('#modul-table tbody').innerHTML = '';
-            }
-        });
-    </script>
+                } else {
+                    results = '<tr><td colspan="4" class="text-center p-4">No modules found</td></tr>';
+                }
+                document.querySelector('#modul-table tbody').innerHTML = results;
+            })
+            .catch(error => {
+                document.querySelector('#modul-table tbody').innerHTML =
+                    '<tr><td colspan="4" class="text-center p-4 text-red-500">Error occurred</td></tr>';
+            });
+    } else {
+        // Handle when there's no query (show all modules)
+        fetch("{{ route('data-modul') }}")
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const tbody = doc.querySelector('tbody').innerHTML;
+                document.querySelector('#modul-table tbody').innerHTML = tbody;
+            })
+            .catch(error => {
+                document.querySelector('#modul-table tbody').innerHTML =
+                    '<tr><td colspan="4" class="text-center p-4 text-red-500">Error occurred</td></tr>';
+            });
+    }
+});
+
+</script>
+
 @endsection
