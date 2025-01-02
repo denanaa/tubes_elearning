@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Modul;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ModulController extends Controller
 {
@@ -98,4 +99,11 @@ class ModulController extends Controller
         $modules = Modul::all();
         return response()->json($modules);
     }
+
+    public function generatePDF()
+{
+    $modules = Modul::with('category')->get(); // Pastikan relasi 'category' sudah diatur di model
+    $pdf = Pdf::loadView('pdf-modules', compact('modules'));
+    return $pdf->download('data_modules.pdf');
+}
 }

@@ -29,6 +29,10 @@
         <a href="{{ route('create-kategori') }}"
             class="ml-auto text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none mb-2">Add
             Kategori</a>
+
+            <a href="{{ route('categories-pdf') }}" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1.5">
+                Download PDF
+            </a>
     </div>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">

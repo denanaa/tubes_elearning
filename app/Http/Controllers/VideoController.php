@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Video;
 use App\Models\Modul;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Http\Request;
 
@@ -118,4 +119,11 @@ class VideoController extends Controller
         $videos = Video::all();
         return response()->json($videos);
     }
+
+    public function generatePDF()
+{
+    $videos = Video::with('module')->get(); // Pastikan relasi 'module' sudah diatur di model Video
+    $pdf = Pdf::loadView('pdf-videos', compact('videos'));
+    return $pdf->download('data_videos.pdf');
+}
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserController extends Controller
 {
@@ -101,6 +102,15 @@ class UserController extends Controller
     $users = User::all(); // Ambil semua data pengguna
     return response()->json($users);
     }
+
+    
+
+public function generatePDF()
+{
+    $users = User::all(); // Ambil data user
+    $pdf = Pdf::loadView('pdf-users', compact('users'));
+    return $pdf->download('data_users.pdf');
+}
 
 
 

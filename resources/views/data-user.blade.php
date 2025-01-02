@@ -29,6 +29,10 @@
         <a href="{{ route('create-user') }}"
             class="ml-auto text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none mb-2">Add
             User</a>
+
+            <a href="{{ route('users-pdf') }}" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1.5">
+                Download PDF
+            </a>
     </div>
 
 
@@ -70,6 +74,7 @@
                                 @csrf
                                 <button type="submit"
                                     class="bg-red-500 text-white text-xs hover:bg-red-600 px-2.5 py-0.5 rounded">Delete</button>
+                                    
                             </form>
                         </td>
                     </tr>

@@ -50,6 +50,8 @@ Route::post('/delete-user/{id}', [UserController::class, 'destroy'])->name('dele
 Route::get('/search-user', [UserController::class, 'search'])->name('search-user');
 Route::get('/live-search-user', [UserController::class, 'liveSearch'])->name('live-search-user');
 Route::get('/load-all-users', [UserController::class, 'loadAllUsers'])->name('load-all-users');
+Route::get('/users/pdf', [UserController::class, 'generatePDF'])->name('users-pdf');
+
 
 
 
@@ -65,6 +67,8 @@ Route::post('/delete-modul/{id_module}', [ModulController::class, 'destroy'])->n
 Route::get('/search-modul', [ModulController::class, 'search'])->name('search-modul');
 Route::get('/live-search-modul', [ModulController::class, 'liveSearch'])->name('live-search-modul');
 Route::get('/load-all-modules', [ModulController::class, 'loadAllModules'])->name('load-all-modules');
+Route::get('/modules/pdf', [ModulController::class, 'generatePDF'])->name('modules-pdf');
+
 
 // Route::post('/store-modul', [ModulController::class, 'store'])->name('store-modul');
 
@@ -79,6 +83,8 @@ Route::put('/kategori/{id_category}', [CategoryController::class, 'update'])->na
 Route::post('/delete-kategori/{id_category}', [CategoryController::class, 'destroy'])->name('delete-kategori');
 Route::get('/live-search-category', [CategoryController::class, 'liveSearch'])->name('live-search-category');
 Route::get('/load-all-categories', [CategoryController::class, 'loadAllCategories'])->name('load-all-categories');
+Route::get('/categories/pdf', [CategoryController::class, 'generatePDF'])->name('categories-pdf');
+
 
 // Route::get('/kategori/dashboard', [CategoryController::class, 'dashboard'])->name('kategori-dashboard');
 
@@ -96,6 +102,8 @@ Route::delete('/delete-video/{id_video}', [VideoController::class, 'destroy'])->
 Route::get('/search-video', [VideoController::class, 'search'])->name('search-video');
 Route::get('/live-search-video', [VideoController::class, 'liveSearch'])->name('live-search-video');
 Route::get('/load-all-videos', [VideoController::class, 'loadAllVideos'])->name('load-all-videos');
+Route::get('/videos/pdf', [VideoController::class, 'generatePDF'])->name('videos-pdf');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
