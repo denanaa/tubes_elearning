@@ -77,7 +77,7 @@ Route::get('/data-kategori', [CategoryController::class, 'index'])->name('data-k
 Route::get('/create-kategori', [CategoryController::class, 'create'])->name('create-kategori');
 Route::post('/create-kategori', [CategoryController::class, 'store'])->name('store-kategori');
 Route::get('/edit-kategori/{id_category}', [CategoryController::class, 'edit'])->name('edit-kategori');
-Route::put('/update-kategori/{id_category}', [CategoryController::class, 'update'])->name('update-kategori');
+Route::put('/kategori/{id_category}', [CategoryController::class, 'update'])->name('update-kategori');
 Route::post('/delete-kategori/{id_category}', [CategoryController::class, 'destroy'])->name('delete-kategori');
 Route::get('/live-search-category', [CategoryController::class, 'liveSearch'])->name('live-search-category');
 Route::get('/load-all-categories', [CategoryController::class, 'loadAllCategories'])->name('load-all-categories');
