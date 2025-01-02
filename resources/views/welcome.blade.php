@@ -202,7 +202,7 @@ foreach ($channels as $channelId) {
                 </h1>
             </div>
             <div class="w-full px-8 lg:w-1/2 lg:text-center lg:pl-5">
-                <a href="#" class="text-base font-semibold text-[#37AFE1] bg-white py-3 px-8 rounded-xl hover:text-white hover:bg-[#4CC9FE] transition duration-300 ease-in-out">Belajar Sekarang</a>
+                <a href="{{ url('content') }}" class="text-base font-semibold text-[#37AFE1] bg-white py-3 px-8 rounded-xl hover:text-white hover:bg-[#4CC9FE] transition duration-300 ease-in-out">Belajar Sekarang</a>
             </div>
         </div>
     </div>
