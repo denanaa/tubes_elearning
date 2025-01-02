@@ -3,7 +3,7 @@
 <body class="flex justify-center items-center h-screen">
     <div class="w-full max-w-md p-6 bg-white rounded-lg">
         <div class="text-center mb-6">
-            <img src="/path/to/logo.png" alt="Logo" class="w-16 mx-auto">
+            <img src="{{ asset('images/logobinabhs.png') }}" alt="Logo" class="w-20 mx-auto">
             <h1 class="text-2xl font-bold text-gray-700">Selamat Datang!</h1>
             <p class="text-gray-500">Masuk untuk melanjutkan.</p>
         </div>

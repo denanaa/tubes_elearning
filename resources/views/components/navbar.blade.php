@@ -1,8 +1,11 @@
 <div class="w-full">
     <div class="flex items-center justify-between w-full relative">
-            <!-- Logo -->
-            <div class="px-4">
-                <a href="#home" class="font-bold italic text-lg text-[#37AFE1] block py-6">BinaBahasa</a>
+            
+            <div class="flex items-center px-4">
+                <!-- Logo -->
+            <img src="{{ asset('images/logobinabhs.png') }}" alt="logo" class="w-14 h-14 mr-2" />
+                <!-- nama -->
+            <a href="{{ url('welcome') }}" class="font-bold italic text-lg text-[#37AFE1]">BinaBahasa</a>
             </div>
 
             <!-- Navigasi dan Tombol -->
