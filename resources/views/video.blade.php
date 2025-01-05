@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>Document</title>
+    <title>BinaBahasa</title>
 </head>
 <body>
     <section class="p-10 bg-gradient-to-b from-[#37AFE1] -mb-20">
         <div class="flex items-center pl-10">
-            
-            {{-- tombol button back --}}
+            <!-- tombol button back -->
             <button onclick="history.back()" class="btn bg-transparent hover:bg-white  px-6 py-3 rounded-full shadow-lg transition-all duration-300 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
@@ -20,28 +19,28 @@
             </button>
         </div>
 
-        {{-- video youtube --}}
-        <iframe class="w-full aspect-video ... p-10" src="https://www.youtube.com/..."></iframe>
+        <!-- video youtube -->
+        <iframe class="w-full aspect-video ... p-10" src="{{ $video->link_video }}"></iframe>
 
-        {{-- judul video --}}
-        <h1 class="text-4xl font-bold break-words pl-14">JUDULLLLLLLLLLLLLLLLLLLL</h1>
+        <!-- judul video -->
+        <h1 class="text-4xl font-bold break-words pl-14">{{ $video->title_video }}</h1>
         
-        {{-- form desc --}}
+        <!-- form desc -->
         <div class="flex flex-col lg:flex-row">
-                <div class="p-10 w-full">
+            <div class="p-10 w-full">
                 <div class="hero bg-white min-h-32 rounded-lg">
                     <div class="hero-content flex-col lg:flex-row">
-                        <div>
+                        <div class="text-left">
                             <h1 class="text-4xl font-bold">Deskripsi</h1>
                             <p class="py-6">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias dolores eos illo suscipit eaque et error omnis alias in labore repellendus eum libero reprehenderit, laborum id, aliquid pariatur molestiae sed! Natus, necessitatibus earum magnam aut quae fuga consequatur sunt quis reprehenderit blanditiis exercitationem nemo aspernatur illo minus, esse consequuntur atque, deserunt est et impedit possimus alias vitae accusamus veniam. Ipsa, earum nisi. Obcaecati fuga error expedita necessitatibus, voluptate animi. Quo molestiae delectus nulla doloribus animi, dignissimos eligendi nisi, dicta aperiam ipsam repudiandae similique! Illo incidunt veritatis, ducimus perferendis, iste consequatur fugit nam dolores alias quasi sint vero inventore laudantium enim eveniet aperiam aliquam officiis dolor quaerat neque sunt exercitationem est veniam pariatur? Debitis voluptate sed quas dicta cupiditate ratione officiis nisi necessitatibus possimus tempora consequuntur beatae officia explicabo nobis rem molestiae eum rerum, quod ab voluptates fugit ut consequatur aliquam? Rerum dolorem maxime nostrum hic officiis aspernatur praesentium, tenetur minus possimus consequuntur officia aut necessitatibus, quae doloribus iure aliquam doloremque porro ea quidem exercitationem quis debitis fuga. Similique consequuntur sed sapiente hic earum aliquam nostrum id! Quisquam odit molestiae quasi necessitatibus odio repellendus provident repudiandae beatae nulla. Nisi obcaecati, quaerat, reprehenderit iste ea accusantium nihil aliquam mollitia ex vel asperiores.
+                            {{ $video->description_video }}
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{-- social media --}}
+            <!-- social media -->
             <div class="py-8 w-full lg:w-1/3">
                 <div class="card w-full max-w-sm bg-white shadow-md p-4 mt-4">
                     <h3 class="text-lg font-semibold mb-2">Pengunggah Konten</h3>
@@ -97,38 +96,25 @@
                 </div>
             </div>
         </div>
-    </section>
 
-    {{-- materi yang disarankan --}}
-    <section class="p-10">
-        <h2 class="text-2xl  font-bold p-10">You Might Like Other Materials</h2>
-        <div class="carousel carousel-center bg-[#37AFE1] rounded-box max-w-full space-x-4 p-4">
-            
-            {{-- untuk card disini dibungkus dulu menggunakan carausel-item --}}
-            <div class="carousel-item"> 
-                <x-cardslide></x-cardslide>
-            </div>
-
-            <div class="carousel-item"> 
-                <x-cardslide></x-cardslide>
-            </div>
-
-            <div class="carousel-item">
-                <x-cardslide></x-cardslide>
-            </div>
-
-            <div class="carousel-item">
-                <x-cardslide></x-cardslide>
-            </div>
-
-            <div class="carousel-item">
-                <x-cardslide></x-cardslide>
-            </div>
-
-            <div class="carousel-item">
-                <x-cardslide></x-cardslide>
-            </div>
+<!-- Section for other videos -->
+<section class="p-10 bg-white">
+        <h2 class="text-3xl font-bold mb-6">Video Lainnya</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach ($otherVideos as $otherVideo)
+                <div class="card w-full bg-gray-100 shadow-lg rounded-lg overflow-hidden">
+                    <a href="{{ route('video.show', ['videoId' => $otherVideo->id_video]) }}">
+                        <img src="{{ asset('storage/' . $otherVideo->thumbnail_video) }}" alt="{{ $otherVideo->title_video }}" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold">{{ $otherVideo->title_video }}</h3>
+                            <p class="text-gray-600">{{ Str::limit($otherVideo->description_video, 100) }}</p>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </section>
+    </section>
+
 </body>
 </html>

@@ -56,5 +56,13 @@ Route::get('/welcome/{type}', [WelcomeController::class, 'show']);
 require __DIR__.'/auth.php';
 
 Route::get('/content', [ContentController::class, 'index'])->name('content');
-Route::get('/materi', [MateriController::class, 'index'])->name('materi');
-Route::get('/materi/kategori/{categoryId}', [MateriController::class, 'showByCategory'])->name('materi.kategori');
+Route::get('/kategori/{categoryId}', [MateriController::class, 'showByCategory'])->name('materi.kategori');
+
+
+Route::get('/materi', [MateriController::class, 'index']); // Menampilkan semua video
+Route::get('/materi/filter', [MateriController::class, 'filter']); // Filter berdasarkan modul dan kategori
+Route::get('/materi/kategori/{categoryId}', [MateriController::class, 'showByCategory']); // Menampilkan video berdasarkan kategori
+Route::get('/materi/{videoId}', [MateriController::class, 'show']); // Menampilkan video berdasarkan ID
+Route::get('/materi/search', [MateriController::class, 'search'])->name('materi.search'); // Pencarian
+
+Route::get('/video/{videoId}', [VideoController::class, 'show'])->name('video.show');

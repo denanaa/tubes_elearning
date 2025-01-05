@@ -1,4 +1,4 @@
-<a href="{{ url('video/' . $video->id_video) }}">
+<a href="{{ route('video.show', ['videoId' => $video->id_video]) }}" class="block">
     <div class="card w-full sm:w-80 lg:w-96 bg-white shadow-lg rounded-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border hover:border-[#2E91C2]">
         <figure class="aspect-video">
             <img src="{{ asset('storage/' . $video->thumbnail_video) }}" alt="{{ $video->title_video }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
