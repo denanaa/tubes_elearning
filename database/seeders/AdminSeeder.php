@@ -15,7 +15,6 @@ class AdminSeeder extends Seeder
             'email' => 'adminbinabahasa@example.com',
             'password' => Hash::make('password123'),
             'role' => 'admin', // Pastikan ini sesuai dengan nilai yang diizinkan
-            'google_token' => '', // Atau token lainnya jika diperlukan
         ]);
         
     }

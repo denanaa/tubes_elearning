@@ -4,36 +4,43 @@
     @section('header', 'Data Video')
 
     @section('content')
-    <div class="flex items-center mb-4">
-        <div class="relative w-60">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none z-10">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                </svg>
-            </div>
-            <form action="{{ route('search-user') }}" method="GET">
-                <div class="relative">
-                    <input id="search" type="text" name="query" value="{{ request('query') }}" placeholder="Cari..."
-                        class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                        autocomplete="off" />
-                    <button type="submit"
-                        class="absolute inset-y-0 end-0 px-3 text-white bg-blue-500 rounded-r-lg hover:bg-blue-600">
-                        Search
-                    </button>
+        <div class="flex items-center mb-4">
+            <!-- Form Pencarian -->
+            <div class="relative w-60">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none z-10">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
                 </div>
-            </form>
-        </div>
-        <!-- Pindahkan tombol "Add User" ke paling kanan dengan menambahkan ml-auto -->
-        <a href="{{ route('create-video') }}"
-            class="ml-auto text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none mb-2">Add
-            Video</a>
+                <form action="{{ route('search-user') }}" method="GET">
+                    <div class="relative">
+                        <input id="search" type="text" name="query" value="{{ request('query') }}"
+                            placeholder="Cari..."
+                            class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                            autocomplete="off" />
+                        <button type="submit"
+                            class="absolute inset-y-0 end-0 px-3 text-white bg-blue-500 rounded-r-lg hover:bg-blue-600">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
 
-            <a href="{{ route('videos-pdf') }}" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1.5">
-                Download PDF
-            </a>
-    </div>
+            <!-- Tombol Add Video dan Download PDF -->
+            <div class="ml-auto flex space-x-2">
+                <a href="{{ route('create-video') }}"
+                    class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
+                    Add Video
+                </a>
+                <a href="{{ route('videos-pdf') }}"
+                    class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                    Download PDF
+                </a>
+            </div>
+        </div>
+
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -247,17 +254,17 @@
             }
 
             document.getElementById('search').addEventListener('keyup', function() {
-    const query = this.value;
+                const query = this.value;
 
-    if (query.length > 0) {
-        fetch("{{ route('live-search-video') }}?query=" + query)
-            .then(response => response.json())
-            .then(data => {
-                let results = '';
-                if (data.length > 0) {
-                    // Start from 1 for numbering
-                    data.forEach((video, index) => {
-                        results += `
+                if (query.length > 0) {
+                    fetch("{{ route('live-search-video') }}?query=" + query)
+                        .then(response => response.json())
+                        .then(data => {
+                            let results = '';
+                            if (data.length > 0) {
+                                // Start from 1 for numbering
+                                data.forEach((video, index) => {
+                                    results += `
                             <tr class="text-center">
                                 <td class="px-6 py-4">${index + 1}</td> <!-- Dynamic number -->
                                 <td class="px-6 py-4">${video.id_module}</td>
@@ -277,33 +284,31 @@
                                 </td>
                             </tr>
                         `;
-                    });
+                                });
+                            } else {
+                                results = '<tr><td colspan="7" class="text-center p-4">No videos found</td></tr>';
+                            }
+                            document.querySelector('tbody').innerHTML = results;
+                        })
+                        .catch(error => {
+                            document.querySelector('tbody').innerHTML =
+                                '<tr><td colspan="7" class="text-center p-4 text-red-500">Error occurred</td></tr>';
+                        });
                 } else {
-                    results = '<tr><td colspan="7" class="text-center p-4">No videos found</td></tr>';
+                    // Mengembalikan data awal
+                    fetch("{{ route('data-video') }}")
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            const tbody = doc.querySelector('tbody').innerHTML;
+                            document.querySelector('tbody').innerHTML = tbody;
+                        })
+                        .catch(error => {
+                            document.querySelector('tbody').innerHTML =
+                                '<tr><td colspan="7" class="text-center p-4 text-red-500">Error occurred</td></tr>';
+                        });
                 }
-                document.querySelector('tbody').innerHTML = results;
-            })
-            .catch(error => {
-                document.querySelector('tbody').innerHTML =
-                    '<tr><td colspan="7" class="text-center p-4 text-red-500">Error occurred</td></tr>';
             });
-    } else {
-        // Mengembalikan data awal
-        fetch("{{ route('data-video') }}")
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const tbody = doc.querySelector('tbody').innerHTML;
-                document.querySelector('tbody').innerHTML = tbody;
-            })
-            .catch(error => {
-                document.querySelector('tbody').innerHTML =
-                    '<tr><td colspan="7" class="text-center p-4 text-red-500">Error occurred</td></tr>';
-            });
-    }
-});
-
-
         </script>
     @endsection

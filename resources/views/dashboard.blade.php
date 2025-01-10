@@ -93,6 +93,28 @@
             <!-- Main Content -->
             <main class="flex-grow p-6">
                 <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
+
+                <!-- Dashboard Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-white shadow-lg rounded-lg p-4">
+                        <h2 class="text-lg font-semibold text-gray-700">Total Users</h2>
+                        <p class="text-2xl font-bold text-[#37AFE1]">{{ $totalUsers }}</p>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-lg p-4">
+                        <h2 class="text-lg font-semibold text-gray-700">Total Kategori</h2>
+                        <p class="text-2xl font-bold text-[#37AFE1]">{{ $totalCategory }}</p>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-lg p-4">
+                        <h2 class="text-lg font-semibold text-gray-700">Total Modul</h2>
+                        <p class="text-2xl font-bold text-[#37AFE1]">{{ $totalModul }}</p>
+                    </div>
+                    <div class="bg-white shadow-lg rounded-lg p-4">
+                        <h2 class="text-lg font-semibold text-gray-700">Total Video</h2>
+                        <p class="text-2xl font-bold text-[#37AFE1]">{{ $totalVideo }}</p>
+                    </div>
+                </div>
+
+
             </main>
         </div>
     </div>

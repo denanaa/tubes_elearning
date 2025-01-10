@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ModulController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', function () {
@@ -131,6 +132,7 @@ Route::get('/content', function () {
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
+Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard'); 
 
 Route::get('/materi/{type}', [MateriController::class, 'show']);
 

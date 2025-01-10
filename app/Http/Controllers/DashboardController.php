@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Category;
+use App\Models\Modul;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,7 +15,13 @@ class DashboardController extends Controller
      */
     public function adminDashboard()
     {
-        // Pastikan hanya admin yang bisa mengakses halaman ini
-        return view('dashboard'); // Ganti dengan view dashboard yang sesuai
+        // Mengambil jumlah data dari masing-masing tabel
+        $totalUsers = User::count();
+        $totalCategory = Category::count();
+        $totalModul = Modul::count();
+        $totalVideo = Video::count();
+
+        // Mengirimkan data ke view
+        return view('dashboard', compact('totalUsers', 'totalCategory', 'totalModul', 'totalVideo'));
     }
 }

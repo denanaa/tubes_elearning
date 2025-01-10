@@ -5,6 +5,7 @@
 
 @section('content')
     <div class="flex items-center mb-4">
+        <!-- Form Pencarian -->
         <div class="relative w-60">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none z-10">
                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -25,15 +26,20 @@
                 </div>
             </form>
         </div>
-        <!-- Pindahkan tombol "Add User" ke paling kanan dengan menambahkan ml-auto -->
-        <a href="{{ route('create-modul') }}"
-            class="ml-auto text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none mb-2">Add
-            Modul</a>
 
-            <a href="{{ route('modules-pdf') }}" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1.5">
+        <!-- Tombol Add Modul dan Download PDF -->
+        <div class="ml-auto flex space-x-2">
+            <a href="{{ route('create-modul') }}"
+                class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
+                Add Modul
+            </a>
+            <a href="{{ route('modules-pdf') }}"
+                class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5">
                 Download PDF
             </a>
+        </div>
     </div>
+
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -138,60 +144,60 @@
     </div>
 
     <script>
-    var categories = @json($categories); // Menyimpan kategori di JavaScript
+        var categories = @json($categories); // Menyimpan kategori di JavaScript
 
-    function showEditModal(id, name, categoryId) {
-        // Menampilkan modal dan mengisi data
-        document.getElementById('editId').value = id;
-        document.getElementById('editModulName').value = name;
+        function showEditModal(id, name, categoryId) {
+            // Menampilkan modal dan mengisi data
+            document.getElementById('editId').value = id;
+            document.getElementById('editModulName').value = name;
 
-        // Menambahkan opsi kategori ke dropdown
-        var categorySelect = document.getElementById('editCategory');
-        categorySelect.innerHTML = ''; // Kosongkan dropdown sebelum menambah data
+            // Menambahkan opsi kategori ke dropdown
+            var categorySelect = document.getElementById('editCategory');
+            categorySelect.innerHTML = ''; // Kosongkan dropdown sebelum menambah data
 
-        categories.forEach(function(category) {
-            var option = document.createElement("option");
-            option.value = category.id_category;
-            option.textContent = category.name;
-            if (category.id_category == categoryId) {
-                option.selected = true; // Pilih kategori yang sesuai
-            }
-            categorySelect.appendChild(option);
-        });
+            categories.forEach(function(category) {
+                var option = document.createElement("option");
+                option.value = category.id_category;
+                option.textContent = category.name;
+                if (category.id_category == categoryId) {
+                    option.selected = true; // Pilih kategori yang sesuai
+                }
+                categorySelect.appendChild(option);
+            });
 
-        // Menampilkan modal
-        document.getElementById('editModal').classList.remove('hidden');
+            // Menampilkan modal
+            document.getElementById('editModal').classList.remove('hidden');
 
-        // Update form action URL
-        var formAction = "{{ route('update-modul', ':id') }}".replace(':id', id);
-        document.getElementById('editForm').action = formAction;
-    }
+            // Update form action URL
+            var formAction = "{{ route('update-modul', ':id') }}".replace(':id', id);
+            document.getElementById('editForm').action = formAction;
+        }
 
-    function hideEditModal() {
-        document.getElementById('editModal').classList.add('hidden');
-    }
+        function hideEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
 
-    function showDeleteModal(id) {
-        document.getElementById('deleteId').value = id;
-        document.getElementById('deleteModal').classList.remove('hidden');
-    }
+        function showDeleteModal(id) {
+            document.getElementById('deleteId').value = id;
+            document.getElementById('deleteModal').classList.remove('hidden');
+        }
 
-    function hideDeleteModal() {
-        document.getElementById('deleteModal').classList.add('hidden');
-    }
+        function hideDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
 
-    document.getElementById('search').addEventListener('keyup', function() {
-    const query = this.value;
+        document.getElementById('search').addEventListener('keyup', function() {
+            const query = this.value;
 
-    if (query.length > 0) {
-        fetch("{{ route('live-search-modul') }}?query=" + query)
-            .then(response => response.json())
-            .then(data => {
-                let results = '';
-                if (data.length > 0) {
-                    // Start from 1 for numbering
-                    data.forEach((modul, index) => {
-                        results += `
+            if (query.length > 0) {
+                fetch("{{ route('live-search-modul') }}?query=" + query)
+                    .then(response => response.json())
+                    .then(data => {
+                        let results = '';
+                        if (data.length > 0) {
+                            // Start from 1 for numbering
+                            data.forEach((modul, index) => {
+                                results += `
                             <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
                                 <td class="px-6 py-4">${index + 1}</td> <!-- Dynamic number -->
                                 <td class="px-6 py-4">${modul.category.name}</td>
@@ -206,33 +212,32 @@
                                 </td>
                             </tr>
                         `;
+                            });
+                        } else {
+                            results = '<tr><td colspan="4" class="text-center p-4">No modules found</td></tr>';
+                        }
+                        document.querySelector('#modul-table tbody').innerHTML = results;
+                    })
+                    .catch(error => {
+                        document.querySelector('#modul-table tbody').innerHTML =
+                            '<tr><td colspan="4" class="text-center p-4 text-red-500">Error occurred</td></tr>';
                     });
-                } else {
-                    results = '<tr><td colspan="4" class="text-center p-4">No modules found</td></tr>';
-                }
-                document.querySelector('#modul-table tbody').innerHTML = results;
-            })
-            .catch(error => {
-                document.querySelector('#modul-table tbody').innerHTML =
-                    '<tr><td colspan="4" class="text-center p-4 text-red-500">Error occurred</td></tr>';
-            });
-    } else {
-        // Handle when there's no query (show all modules)
-        fetch("{{ route('data-modul') }}")
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const tbody = doc.querySelector('tbody').innerHTML;
-                document.querySelector('#modul-table tbody').innerHTML = tbody;
-            })
-            .catch(error => {
-                document.querySelector('#modul-table tbody').innerHTML =
-                    '<tr><td colspan="4" class="text-center p-4 text-red-500">Error occurred</td></tr>';
-            });
-    }
-});
-
-</script>
+            } else {
+                // Handle when there's no query (show all modules)
+                fetch("{{ route('data-modul') }}")
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const tbody = doc.querySelector('tbody').innerHTML;
+                        document.querySelector('#modul-table tbody').innerHTML = tbody;
+                    })
+                    .catch(error => {
+                        document.querySelector('#modul-table tbody').innerHTML =
+                            '<tr><td colspan="4" class="text-center p-4 text-red-500">Error occurred</td></tr>';
+                    });
+            }
+        });
+    </script>
 
 @endsection

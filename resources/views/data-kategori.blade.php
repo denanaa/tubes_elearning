@@ -5,6 +5,7 @@
 
 @section('content')
     <div class="flex items-center mb-4">
+        <!-- Form Pencarian -->
         <div class="relative w-60">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none z-10">
                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -25,15 +26,20 @@
                 </div>
             </form>
         </div>
-        <!-- Pindahkan tombol "Add User" ke paling kanan dengan menambahkan ml-auto -->
-        <a href="{{ route('create-kategori') }}"
-            class="ml-auto text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none mb-2">Add
-            Kategori</a>
 
-            <a href="{{ route('categories-pdf') }}" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1.5">
+        <!-- Tombol Add Kategori dan Download PDF -->
+        <div class="ml-auto flex space-x-2">
+            <a href="{{ route('create-kategori') }}"
+                class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
+                Add Kategori
+            </a>
+            <a href="{{ route('categories-pdf') }}"
+                class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
                 Download PDF
             </a>
+        </div>
     </div>
+
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -213,20 +219,20 @@
         }
 
 
-// Live search functionality for categories
-document.getElementById('search').addEventListener('keyup', function() {
-    const query = this.value;
+        // Live search functionality for categories
+        document.getElementById('search').addEventListener('keyup', function() {
+            const query = this.value;
 
-    // Start live search only if the input length is greater than 1 character
-    if (query.length > 0) {
-        fetch("{{ route('live-search-category') }}?query=" + query)
-            .then(response => response.json())
-            .then(data => {
-                let results = '';
-                if (data.length > 0) {
-                    // Start from 1 for numbering
-                    data.forEach((category, index) => {
-                        results += `
+            // Start live search only if the input length is greater than 1 character
+            if (query.length > 0) {
+                fetch("{{ route('live-search-category') }}?query=" + query)
+                    .then(response => response.json())
+                    .then(data => {
+                        let results = '';
+                        if (data.length > 0) {
+                            // Start from 1 for numbering
+                            data.forEach((category, index) => {
+                                results += `
                             <tr class="text-center">
                                 <td class="px-6 py-4">${index + 1}</td> <!-- Dynamic number -->
                                 <td class="px-6 py-4">
@@ -244,20 +250,20 @@ document.getElementById('search').addEventListener('keyup', function() {
                                 </td>
                             </tr>
                         `;
+                            });
+                        } else {
+                            results =
+                                '<tr><td colspan="5" class="text-center p-4">No categories found</td></tr>';
+                        }
+                        document.querySelector('tbody').innerHTML = results;
+                    })
+                    .catch(error => {
+                        document.querySelector('tbody').innerHTML =
+                            '<tr><td colspan="5" class="text-center p-4 text-red-500">Error occurred</td></tr>';
                     });
-                } else {
-                    results =
-                        '<tr><td colspan="5" class="text-center p-4">No categories found</td></tr>';
-                }
-                document.querySelector('tbody').innerHTML = results;
-            })
-            .catch(error => {
-                document.querySelector('tbody').innerHTML =
-                    '<tr><td colspan="5" class="text-center p-4 text-red-500">Error occurred</td></tr>';
-            });
-    } else {
-        // Show all categories when search is cleared
-        document.querySelector('tbody').innerHTML = ` 
+            } else {
+                // Show all categories when search is cleared
+                document.querySelector('tbody').innerHTML = ` 
             @foreach ($categories as $index => $category)
             <tr class="text-center">
                 <td class="px-6 py-4">{{ $loop->iteration }}</td> <!-- Keep server-side iteration when no search -->
@@ -277,8 +283,7 @@ document.getElementById('search').addEventListener('keyup', function() {
             </tr>
             @endforeach
         `;
-    }
-});
-
+            }
+        });
     </script>
 @endsection
