@@ -1,37 +1,38 @@
+<style>
+    /* Menghindari scroll horizontal */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Menambahkan box-sizing untuk semua elemen */
+    * {
+        box-sizing: border-box;
+    }
+</style>
+
 <div class="w-full">
     <div class="flex items-center justify-between w-full relative">
-            
-            <div class="flex items-center px-4">
+    <div class="flex items-center px-4">
                 <!-- Logo -->
             <img src="{{ asset('images/logobinabhs.png') }}" alt="logo" class="w-14 h-14 mr-2" />
                 <!-- nama -->
             <a href="{{ url('welcome') }}" class="font-bold italic text-lg text-[#37AFE1]">BinaBahasa</a>
             </div>
 
-            <!-- Navigasi dan Tombol -->
-            <div class="flex items-center px-4">
-                <!-- Tombol Hamburger (hanya layar kecil) -->
-                <button 
-                    @click="isHamburgerActive = !isHamburgerActive" 
-                    type="button" 
-                    class="block lg:hidden"
-                >
-                    <!-- Garis 1 -->
-                    <span 
-                        class="hamburger-line transition duration-300 ease-in-out origin-top-left" 
-                        :class="{ 'rotate-45': isHamburgerActive }"
-                    ></span>
-                    <!-- Garis 2 -->
-                    <span 
-                        class="hamburger-line transition duration-300 ease-in-out"
-                        :class="{ 'opacity-0': isHamburgerActive }"
-                    ></span>
-                    <!-- Garis 3 -->
-                    <span 
-                        class="hamburger-line transition duration-300 ease-in-out origin-bottom-left" 
-                        :class="{ '-rotate-45': isHamburgerActive }"
-                    ></span>
-                </button>
+        <!-- Navigasi dan Tombol -->
+        <div class="flex items-center px-4">
+            <!-- Tombol Hamburger (hanya layar kecil) -->
+            <button @click="isHamburgerActive = !isHamburgerActive" type="button" class="block lg:hidden">
+                <!-- Garis 1 -->
+                <span class="hamburger-line transition duration-300 ease-in-out origin-top-left"
+                    :class="{ 'rotate-45': isHamburgerActive }"></span>
+                <!-- Garis 2 -->
+                <span class="hamburger-line transition duration-300 ease-in-out"
+                    :class="{ 'opacity-0': isHamburgerActive }"></span>
+                <!-- Garis 3 -->
+                <span class="hamburger-line transition duration-300 ease-in-out origin-bottom-left"
+                    :class="{ '-rotate-45': isHamburgerActive }"></span>
+            </button>
 
                 <!-- Menu Navigasi -->
                 <nav 
@@ -56,42 +57,46 @@
                                 </a>
                             @else
                                 <div x-data="{ open: false }" @click.outside="open=false" class="relative text-sm py-2 pr-4">
-                                    <button @click="open=!open"
-                                        class="inline-flex items-center justify-start px-3 py-1 mx-8 lg:mx-0 bg-white border rounded-lg shadow-sm hover:bg-gray-100 active:bg-gray-200 focus:outline-none focus:ring-1 border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
-
-                                        <!-- Foto Profil -->
-                                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random&color=fff"
-                                            alt="Profile" 
-                                            class="w-8 h-8 rounded-full border border-gray-300 object-cover" />
-
-                                        <!-- Nama Pengguna -->
-                                        <span class="ml-2 text-gray-800 text-sm font-medium leading-none whitespace-nowrap">
-                                            {{ Auth::user()->name }}
-                                        </span>
-                                    </button>
+                                    <button @click="open=!open" 
+                                    class="inline-flex items-center justify-start px-3 py-1 mx-8 lg:mx-0 bg-white border rounded-lg shadow-sm hover:bg-gray-100 active:bg-gray-200 focus:outline-none focus:ring-1 border-gray-300 transition duration-300 ease-in-out transform hover:scale-105">
+                                
+                                    <!-- Foto Profil -->
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random&color=fff"
+                                        alt="Profile" class="w-6 h-6 rounded-full border border-gray-300 object-cover" />
+                                
+                                    <!-- Nama Pengguna -->
+                                    <span class="ml-2 text-gray-800 text-sm font-medium leading-none whitespace-nowrap">
+                                        {{ Auth::user()->name }}
+                                    </span>
+                                </button>
                                 
 
-                                    <ul x-show="open" class="absolute origin-top-left w-32 p-4 mt-0 bg-white rounded-lg shadow-sm " x-transition x-cloak href="{{ route('logout') }}">
-                                        <!-- jika admin maka ada btn dashboard -->
-                                        <a href="{{ route('dashboard') }}" class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors focus:bg-sky focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                                <ul x-show="open"
+                                    class="absolute origin-top-left w-32 p-4 mt-0 bg-white rounded-lg shadow-sm"
+                                    x-transition x-cloak>
+                                    <!-- Jika admin, tampilkan dashboard -->
+                                    @if (Auth::user()->role === 'admin')
+                                        <a href="{{ route('dashboard') }}"
+                                            class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors focus:bg-sky focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
                                             Dashboard
                                         </a>
-                                        <a href="{{ route('logout') }}" 
-                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
-                                                class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors focus:bg-sky focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-                                            >
-                                                <span>Log out</span>
-                                        </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                                            @csrf
-                                        </form>
-                                    </ul>
-                                </div>
-                            @endguest
-                        </li>
-                    </ul>
-                    </nav>
-                </div>
-            </div>
+                                    @endif
+                                    <!-- Logout -->
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                        class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors focus:bg-sky focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                                        <span>Log out</span>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                        @csrf
+                                    </form>
+                                </ul>
+                            </div>
+                        @endguest
+                    </li>
+                </ul>
+            </nav>
         </div>
+    </div>
+</div>
 </header>

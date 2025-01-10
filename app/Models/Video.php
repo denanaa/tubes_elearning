@@ -7,20 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {
+
     use HasFactory;
 
-    // Jika nama tabel tidak sesuai konvensi Laravel, Anda bisa mendefinisikannya secara eksplisit
-    protected $table = 'videos';
+    protected $table = 'videos'; // Nama tabel
+    protected $primaryKey = 'id_video'; // Primary key
 
-    // Jika primary key bukan 'id', Anda bisa mendefinisikannya secara eksplisit
-    protected $primaryKey = 'id_video';
+    protected $fillable = [
+        'id_module', // Foreign Key
+        'name_module',
+        'title_video', 
+        'link_video', 
+        'thumbnail_video', 
+        'description_video',
+    ];
 
-    // Jika Anda ingin mengizinkan mass assignment untuk kolom tertentu
-    protected $fillable = ['title_video', 'link_video', 'thumbnail_video', 'description_video', 'id_module'];
-
-    // Definisikan relasi jika ada
-    public function module()
-    {
-        return $this->belongsTo(Modul::class, 'id_module', 'id_module');
-    }
+     // Relasi ke tabel 'modules'
+     public function module()
+     {
+         return $this->belongsTo(Modul::class, 'id_module', 'id_module');
+     }
 }

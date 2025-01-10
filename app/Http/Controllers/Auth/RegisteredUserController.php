@@ -34,17 +34,20 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
+    
+        // Membuat user baru
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
+    
         event(new Registered($user));
-
+    
+        // Login otomatis setelah registrasi
         Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+    
+        // Redirect ke halaman utama (welcome)
+        return redirect()->route('welcome');  // Arahkan ke route 'welcome'
     }
 }

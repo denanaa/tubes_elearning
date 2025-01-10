@@ -9,18 +9,26 @@ class Modul extends Model
 {
     use HasFactory;
 
-    // Jika nama tabel tidak sesuai konvensi Laravel, Anda bisa mendefinisikannya secara eksplisit
-    protected $table = 'modules';
+    // Tentukan nama tabel jika berbeda dengan nama model (modules)
+    protected $table = 'modules'; 
+    protected $primaryKey = 'id_module'; // Nama primary key (sesuaikan jika berbeda)
+    // Tentukan kolom yang dapat diisi (fillable)
+    protected $fillable = [
+        'id_category',
+        'name_module',
+        'name',
+    ];
 
-    // Jika primary key bukan 'id', Anda bisa mendefinisikannya secara eksplisit
-    protected $primaryKey = 'id_module';
-
-    // Jika Anda ingin mengizinkan mass assignment untuk kolom tertentu
-    protected $fillable = ['name_module'];
-
-    // Definisikan relasi jika ada
-    public function videos()
+    /**
+     * Relasi ke model Category
+     */
+    public function category()
     {
-        return $this->hasMany(Video::class, 'id_module', 'id_module');
+        return $this->belongsTo(Category::class, 'id_category', 'id_category');
     }
+
+    // public function videos()
+    // {
+    //     return $this->hasMany(Video::class, 'id_module', 'id_module'); 
+    // }
 }

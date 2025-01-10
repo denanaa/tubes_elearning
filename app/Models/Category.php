@@ -16,7 +16,7 @@ class Category extends Model
     protected $primaryKey = 'id_category';
 
     // Jika Anda ingin mengizinkan mass assignment untuk kolom tertentu
-    protected $fillable = ['name_category', 'description'];
+    protected $fillable = ['name_category', 'image', 'name', 'description'];
 
     // Definisikan relasi jika ada
     public function videos()

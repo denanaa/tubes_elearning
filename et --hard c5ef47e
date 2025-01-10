@@ -1,0 +1,37 @@
+[33m3a43bca[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{0}: checkout: moving from ui-logres to main
+[33m3a43bca[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{1}: checkout: moving from ui-logres to ui-logres
+[33m3a43bca[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{2}: checkout: moving from main to ui-logres
+[33m3a43bca[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{3}: merge ui-content: Merge made by the 'ort' strategy.
+[33maba2a29[m HEAD@{4}: checkout: moving from ui-content to main
+[33mf9dd2d9[m[33m ([m[1;31morigin/ui-content[m[33m, [m[1;32mui-content[m[33m)[m HEAD@{5}: pull origin ui-content: Fast-forward
+[33m9b87c41[m HEAD@{6}: checkout: moving from main to ui-content
+[33maba2a29[m HEAD@{7}: merge ui-content: Merge made by the 'ort' strategy.
+[33m90159a5[m[33m ([m[1;31morigin/ui-homepage[m[33m, [m[1;32mui-homepage[m[33m)[m HEAD@{8}: merge ui-homepage: Fast-forward
+[33mc5ef47e[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{9}: checkout: moving from ui-content to main
+[33m9b87c41[m HEAD@{10}: pull origin ui-content: Fast-forward
+[33m2020eb7[m HEAD@{11}: checkout: moving from ui-homepage to ui-content
+[33m90159a5[m[33m ([m[1;31morigin/ui-homepage[m[33m, [m[1;32mui-homepage[m[33m)[m HEAD@{12}: checkout: moving from ui-content to ui-homepage
+[33m2020eb7[m HEAD@{13}: checkout: moving from ui-homepage to ui-content
+[33m90159a5[m[33m ([m[1;31morigin/ui-homepage[m[33m, [m[1;32mui-homepage[m[33m)[m HEAD@{14}: pull origin ui-homepage: Fast-forward
+[33mf31046b[m HEAD@{15}: pull origin ui-homepage: Fast-forward
+[33m2020eb7[m HEAD@{16}: reset: moving to HEAD
+[33m2020eb7[m HEAD@{17}: checkout: moving from ui-content to ui-homepage
+[33m2020eb7[m HEAD@{18}: checkout: moving from ui-homepage to ui-content
+[33m2020eb7[m HEAD@{19}: checkout: moving from ui-frontend to ui-homepage
+[33m2020eb7[m HEAD@{20}: checkout: moving from ui-homepage to ui-frontend
+[33m2020eb7[m HEAD@{21}: checkout: moving from main to ui-homepage
+[33mc5ef47e[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{22}: checkout: moving from ui-homepage to main
+[33m2020eb7[m HEAD@{23}: checkout: moving from main to ui-homepage
+[33mc5ef47e[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{24}: checkout: moving from ui-homepage to main
+[33m2020eb7[m HEAD@{25}: reset: moving to HEAD
+[33m2020eb7[m HEAD@{26}: checkout: moving from ui-homepage to ui-homepage
+[33m2020eb7[m HEAD@{27}: checkout: moving from main to ui-homepage
+[33mc5ef47e[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{28}: checkout: moving from ui-homepage to main
+[33m2020eb7[m HEAD@{29}: checkout: moving from ux-homepage to ui-homepage
+[33m2020eb7[m HEAD@{30}: checkout: moving from ui-homepage to ux-homepage
+[33m2020eb7[m HEAD@{31}: checkout: moving from main to ui-homepage
+[33mc5ef47e[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{32}: checkout: moving from ui-homepage to main
+[33m2020eb7[m HEAD@{33}: pull: Fast-forward
+[33mc5ef47e[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{34}: checkout: moving from main to ui-homepage
+[33mc5ef47e[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{35}: Branch: renamed refs/heads/master to refs/heads/main
+[33mc5ef47e[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{37}: commit (initial): first commit
