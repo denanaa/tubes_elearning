@@ -1,6 +1,6 @@
 <!-- Footer Section Start -->
 <footer class="w-full bg-[#F5F4B3] py-6 text-center">
-    <div class="w-full px-4 sm:px-6 lg:px-8">
+        <div class="w-full px-4 sm:px-6 lg:px-8">
             <!-- Nama Brand -->
             <div class="w-full lg:w-auto text-center lg:text-left">
                 <h1 class="font-bold italic text-lg text-black">BinaBahasa</h1>

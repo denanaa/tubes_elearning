@@ -20,10 +20,10 @@
         </div>
 
         <!-- video youtube -->
-        <iframe class="w-full aspect-video ... p-10" src="{{ $video->link_video }}"></iframe>
+        <iframe class="w-full aspect-video ... p-10" src="https://www.youtube.com/embed/{{ $youtubeVideo['id'] }}"></iframe>
 
         <!-- judul video -->
-        <h1 class="text-4xl font-bold break-words pl-14">{{ $video->title_video }}</h1>
+        <h1 class="text-4xl font-bold break-words pl-14">{{ $youtubeVideo['snippet']['title'] }}</h1>
         
         <!-- form desc -->
         <div class="flex flex-col lg:flex-row">
@@ -33,7 +33,7 @@
                         <div class="text-left">
                             <h1 class="text-4xl font-bold">Deskripsi</h1>
                             <p class="py-6">
-                            {{ $video->description_video }}
+                            {{ $youtubeVideo['snippet']['description'] }}
                             </p>
                         </div>
                     </div>
@@ -42,20 +42,24 @@
 
             <!-- social media -->
             <div class="py-8 w-full lg:w-1/3">
-                <div class="card w-full max-w-sm bg-white shadow-md p-4 mt-4">
+                <div class="card w-full max-w-sm bg-white shadow-md p-4 mt-1">
                     <h3 class="text-lg font-semibold mb-2">Pengunggah Konten</h3>
                     <div class="flex items-center gap-2 mb-4 bg-gray-100 p-5 rounded-lg">
-                        <div class="avatar">
-                            <div class="w-10 rounded-full bg-gray-300"></div>
-                        </div>
-                        <div>
-                            <p class="font-medium">Main Administrator</p>
-                            <p class="text-sm text-gray-500">administrator</p>
+                    <div class="avatar">
+                        <img 
+                            src="{{ $channel['snippet']['thumbnails']['default']['url'] }}" 
+                            alt="{{ $channel['snippet']['title'] }}" 
+                            class="w-10 h-10 rounded-full"
+                        >
+                    </div>
+                        <p class="font-medium">{{ $youtubeVideo['snippet']['channelTitle'] }}</p>
+                            <a href="https://www.youtube.com/channel/{{ $youtubeVideo['snippet']['channelId'] }}" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-500 hover:underline">
+                                Kunjungi Channel
+                            </a>
                         </div>
                     </div>
                     
-                    <h3 class="text-lg font-semibold mb-2">Topik Terkait</h3>
-                    
+                    <h3 class="text-lg font-semibold mb-2 mt-2">Topik Terkait</h3>
                     <div class="flex gap-2 mb-4">
                         <button class="btn btn-square btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -86,12 +90,12 @@
                           </button>
                     </div>
                       
-                    <button class="btn bg-blue-600 hover:bg-blue-700">
+                    <a href="https://www.youtube.com/watch?v={{ $youtubeVideo['id'] }}" target="_blank" rel="noopener noreferrer" class="btn bg-blue-600 hover:bg-blue-700 flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                         <span>Unduh</span>
-                    </button>
+                    </a>
                     
                 </div>
             </div>

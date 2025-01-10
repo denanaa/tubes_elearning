@@ -1,6 +1,6 @@
 <x-layout>
 
-    <section class="w-screen p-10 bg-gradient-to-t from-[#37AFE1]">
+    <section class="w-full p-10 bg-gradient-to-t from-[#37AFE1]">
       <div class="flex flex-col items-center px-8 w-full leading-6 text-black md:flex-row lg:px-16">
           <!-- Image -->
           <div class="box-border relative w-full max-w-md px-4 mt-5 mb-4 -ml-5 text-center bg-no-repeat bg-contain border-solid md:ml-0 md:mt-0 md:max-w-none lg:mb-0 md:w-1/2 xl:pl-10">

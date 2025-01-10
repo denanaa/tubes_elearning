@@ -1,68 +1,63 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\WelcomeController;
+use Illuminate\Support\Facades\Route;
 
+// Rute umum
 Route::get('/', function () {
     return view('welcome'); 
 })->name('welcome');
-
-Route::get('/welcome', function () {
-    return view('welcome');
-})->middleware(['auth', 'verified'])->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+// Rute yang membutuhkan autentikasi
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/welcome', function () {
-    return view('welcome');
+// Rute Materi
+Route::prefix('materi')->group(function () {
+    Route::get('/', [MateriController::class, 'index'])->name('materi.index'); // Semua video
+    Route::get('/materi/search', [MateriController::class, 'search'])->name('materi.search');
+    Route::get('/filter', [MateriController::class, 'filter'])->name('materi.filter'); // Filter
+    Route::get('/kategori/{categoryId}', [MateriController::class, 'showByCategory'])->name('materi.kategori'); // Berdasarkan kategori
+    Route::get('/{videoId}', [MateriController::class, 'show'])->name('materi.show'); // Berdasarkan ID video
 });
 
-Route::get('/content', function () {
-    return view('content');
+// Rute Video
+Route::prefix('video')->group(function () {
+    Route::get('/', function () {
+        return view('video');
+    });
+    Route::get('/{videoId}', [VideoController::class, 'show'])->name('video.show');
 });
 
-Route::get('/video', function () {
-    return  view('video');
+// Rute Content
+Route::prefix('content')->group(function () {
+    Route::get('/', [ContentController::class, 'index'])->name('content.index');
+    Route::get('/{type}', [ContentController::class, 'show'])->name('content.show');
 });
 
-Route::get('materi', function () {
-    return view('materi');
+// Rute Welcome
+Route::prefix('welcome')->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->middleware(['auth', 'verified'])->name('welcome.auth');
+    Route::get('/{type}', [WelcomeController::class, 'show'])->name('welcome.show');
 });
 
-Route::get('/content', function () {
-    return view('content');
-});
+// Rute Test
+Route::get('/test', function () {
+    return 'Route working!';
+})->name('test');
 
-Route::get('/materi/{type}', [MateriController::class, 'show']);
-
-Route::get('/video/{type}', [VideoController::class, 'show']);
-
-Route::get('/content/{type}', [ContentController::class, 'show']);
-
-Route::get('/welcome/{type}', [WelcomeController::class, 'show']);
-
+// Tambahkan rute autentikasi
 require __DIR__.'/auth.php';
-
-Route::get('/content', [ContentController::class, 'index'])->name('content');
-Route::get('/kategori/{categoryId}', [MateriController::class, 'showByCategory'])->name('materi.kategori');
-
-
-Route::get('/materi', [MateriController::class, 'index']); // Menampilkan semua video
-Route::get('/materi/filter', [MateriController::class, 'filter']); // Filter berdasarkan modul dan kategori
-Route::get('/materi/kategori/{categoryId}', [MateriController::class, 'showByCategory']); // Menampilkan video berdasarkan kategori
-Route::get('/materi/{videoId}', [MateriController::class, 'show']); // Menampilkan video berdasarkan ID
-Route::get('/materi/search', [MateriController::class, 'search'])->name('materi.search'); // Pencarian
-
-Route::get('/video/{videoId}', [VideoController::class, 'show'])->name('video.show');
