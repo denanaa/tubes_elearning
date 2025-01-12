@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id('id_module'); // id_module (Primary Key) - Big Integer
             $table->unsignedBigInteger('id_category'); // id_category (Foreign Key) - Unsigned Big Integer
             $table->string('name_module'); // name_module - Varchar (max length 100)
-            $table->string('image_module')->nullable();
             $table->timestamps(); // created_at and updated_at - Timestamps
 
             // Foreign key relation to categories table
