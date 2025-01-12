@@ -41,4 +41,9 @@ return [
         'redirect' => env('GOOGLE_CALLBACK')
     ],
 
+    'youtube' => [
+        'key' => env('YOUTUBE_API_KEY'),
+    ],
+    
+
 ];

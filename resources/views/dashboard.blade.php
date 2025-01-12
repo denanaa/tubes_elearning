@@ -65,7 +65,7 @@
                                     Modul</a>
                             </li>
                             <li class="px-1 py-0.5 first:mt-2">
-                                <a href="data-video"
+                                <a href="data-kategori"
                                     class="flex items-center rounded-md gap-2 px-2 py-1.5 text-sm font-medium text-white underline-offset-2 hover:bg-white hover:text-[#37AFE1] focus-visible:underline focus:outline-none">Data
                                     Kategori</a>
                             </li>

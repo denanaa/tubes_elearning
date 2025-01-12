@@ -79,9 +79,7 @@
                             <td class="px-6 py-4">
                                 {{ $video->title_video }}
                             </td>
-                            <td class="px-6 py-4">
-                                <a href="{{ $video->link_video }}"
-                                    class="underline text-blue-600 hover:text-blue-300">{{ $video->link_video }}</a>
+                            <td class="px-6 py-4 underline text-blue-600 hover:text-blue-300">{{ $video->link_video }}</a>
                             </td>
                             <td class="px-6 py-4">
                                 <img src="{{ asset('storage/' . $video->thumbnail_video) }}" alt="Thumbnail"
@@ -124,21 +122,21 @@
                         <div class="my-4 space-y-1">
                             <label for="editModul-{{ $video->id_video }}"
                                 class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Modul</label>
-                            <select id="editModul-{{ $video->id_video }}" name="id_module"
-                                class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50">
-                                <option value="" disabled>Select a module</option>
-                                @if (isset($modules) && $modules->count())
-                                    @foreach ($modules as $module)
-                                        <option value="{{ $module->id_module }}"
-                                            {{ $video->id_module == $module->id_module ? 'selected' : '' }}>
-                                            {{ $video->module->name_module }}
-                                        </option>
-                                    @endforeach
-                                @else
-                                    <option value="" disabled>No modules available</option>
-                                @endif
+                                <select id="editModul-{{ $video->id_video }}" name="id_module"
+                                    class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50">
+                                    <option value="" disabled>Select a module</option>
+                                    @if (isset($modules) && $modules->count())
+                                        @foreach ($modules as $module)
+                                            <option value="{{ $module->id_module }}"
+                                                {{ $video->id_module == $module->id_module ? 'selected' : '' }}>
+                                                {{ $module->name_module }}
+                                            </option>
+                                        @endforeach
+                                    @else
+                                        <option value="" disabled>No modules available</option>
+                                    @endif
+                                </select>
 
-                            </select>
                         </div>
                         <div class="my-4 space-y-1">
                             <label for="editTitle"
@@ -154,10 +152,10 @@
                                 class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                 Link Video
                             </label>
-                            <input type="url" id="editLink" name="link_video"
+                            <input type="text" id="editLink" name="link_video"
                                 value="{{ old('link_video', $video->link_video) }}"
                                 class="flex w-full h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50"
-                                placeholder="https://example.com/video">
+                                placeholder="ID Video">
                         </div>
                         <div class="my-4 space-y-1">
                             <label for="editImage"
@@ -255,34 +253,31 @@
 
             document.getElementById('search').addEventListener('keyup', function() {
                 const query = this.value;
-
                 if (query.length > 0) {
                     fetch("{{ route('live-search-video') }}?query=" + query)
                         .then(response => response.json())
                         .then(data => {
                             let results = '';
                             if (data.length > 0) {
-                                // Start from 1 for numbering
+                                // Start from 1 for numberings
                                 data.forEach((video, index) => {
                                     results += `
-                            <tr class="text-center">
-                                <td class="px-6 py-4">${index + 1}</td> <!-- Dynamic number -->
-                                <td class="px-6 py-4">${video.id_module}</td>
-                                <td class="px-6 py-4">${video.title_video}</td>
-                                <td class="px-6 py-4">
-                                    <a href="${video.link_video}" class="underline text-blue-600 hover:text-blue-300">${video.link_video}</a>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <img src="{{ asset('storage') }}/${video.thumbnail_video}" alt="Thumbnail" class="w-16 h-16 object-cover mx-auto rounded-lg">
-                                </td>
-                                <td class="px-6 py-4">${video.description_video}</td>
-                                <td class="px-6 py-4">
-                                    <button onclick="showEditModal('${video.id_video}', '${video.id_module}', '${video.title_video}', '${video.link_video}', '{{ asset('storage') }}/${video.thumbnail_video}', '${video.description_video}')"
-                                        class="bg-green-500 text-white text-xs hover:bg-green-600 px-4 py-0.5 rounded">Edit</button>
-                                    <button onclick="showDeleteModal('${video.id_video}')"
-                                        class="bg-red-500 text-white text-xs hover:bg-red-600 px-2.5 py-0.5 rounded">Delete</button>
-                                </td>
-                            </tr>
+                                <tr class="text-center">
+                                    <td class="px-6 py-4">${index + 1}</td> <!-- Dynamic number -->
+                                    <td class="px-6 py-4">${video.module.name_module}</td>
+                                    <td class="px-6 py-4">${video.title_video}</td>
+                                    <td class="px-6 py-4 underline text-blue-600 hover:text-blue-300">${video.link_video }</td>
+                                    <td class="px-6 py-4">
+                                        <img src="{{ asset('storage') }}/${video.thumbnail_video}" alt="Thumbnail" class="w-16 h-16 object-cover mx-auto rounded-lg">
+                                    </td>
+                                    <td class="px-6 py-4">${video.description_video}</td>
+                                    <td class="px-6 py-4">
+                                        <button onclick="showEditModal('${video.id_video}', '${video.id_module}', '${video.title_video}', '${video.link_video}', '{{ asset('storage') }}/${video.thumbnail_video}', '${video.description_video}')"
+                                            class="bg-green-500 text-white text-xs hover:bg-green-600 px-4 py-0.5 rounded">Edit</button>
+                                        <button onclick="showDeleteModal('${video.id_video}')"
+                                            class="bg-red-500 text-white text-xs hover:bg-red-600 px-2.5 py-0.5 rounded">Delete</button>
+                                    </td>
+                                </tr>
                         `;
                                 });
                             } else {

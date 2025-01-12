@@ -144,7 +144,7 @@
     </div>
 
     <script>
-        var categories = @json($categories); // Menyimpan kategori di JavaScript
+        var categories = @json($categories);
 
         function showEditModal(id, name, categoryId) {
             // Menampilkan modal dan mengisi data
@@ -194,6 +194,7 @@
                     .then(response => response.json())
                     .then(data => {
                         let results = '';
+                        console.log(data);
                         if (data.length > 0) {
                             // Start from 1 for numbering
                             data.forEach((modul, index) => {
@@ -216,10 +217,10 @@
                         } else {
                             results = '<tr><td colspan="4" class="text-center p-4">No modules found</td></tr>';
                         }
-                        document.querySelector('#modul-table tbody').innerHTML = results;
+                        document.querySelector('tbody').innerHTML = results;
                     })
                     .catch(error => {
-                        document.querySelector('#modul-table tbody').innerHTML =
+                        document.querySelector('tbody').innerHTML =
                             '<tr><td colspan="4" class="text-center p-4 text-red-500">Error occurred</td></tr>';
                     });
             } else {
@@ -230,10 +231,10 @@
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(html, 'text/html');
                         const tbody = doc.querySelector('tbody').innerHTML;
-                        document.querySelector('#modul-table tbody').innerHTML = tbody;
+                        document.querySelector('tbody').innerHTML = tbody;
                     })
                     .catch(error => {
-                        document.querySelector('#modul-table tbody').innerHTML =
+                        document.querySelector('tbody').innerHTML =
                             '<tr><td colspan="4" class="text-center p-4 text-red-500">Error occurred</td></tr>';
                     });
             }

@@ -172,7 +172,8 @@ function updatePagination(links, moduleId) {
 
     links.forEach(link => {
         const isActive = link.active ? 'bg-[#4DA8DA] text-white' : 'hover:bg-[#4DA8DA] hover:text-white';
-        const button = `
+        const button = 
+        `
             <a href="#" onclick="filterVideos(${moduleId}, ${link.page}); return false;"
                 class="relative inline-flex items-center h-full px-3 group ${isActive}">
                 ${link.label}
@@ -244,9 +245,10 @@ $(document).ready(function () {
             videoContainer.append(videoCard);
         });
     }
+    
     function updatePaginationSearch(pagination) {
         const paginationContainer = $('.pagination'); 
-        paginationContainer.empty(); // Clear previous pagination
+        paginationContainer.empty(); 
 
         // Previous Button
         if (pagination.prev_page_url) {

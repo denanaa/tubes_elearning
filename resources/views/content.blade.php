@@ -15,8 +15,8 @@
             <a href="{{ route('materi.kategori', ['categoryId' => $category->id_category]) }}">
                     <div class="rounded-[50px] py-10 flex flex-col items-center justify-center shadow-lg border hover:border-sky-700 bg-[#FAF6F2] hover:bg-gray-200 hover:-translate-y-2 transition-transform duration-300 w-96">
                     <img src="{{ asset($category->image) }}" alt="{{ $category->name }}" class="h-32 w-32 object-cover rounded-full">
-                      <h2 class="text-lg font-bold mt-5">{{ $category->name }}</h2>
-                        <p class="p-5">
+                    <h2 class="text-lg font-bold italic mt-5 text-[#37AFE1]">{{ $category->name }}</h2>
+                        <p class="p-5 text-gray-500">
                         {{ $category->description }}</p>
                     </div>
                   </a>        

@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="container">
-    <form action="{{ isset($modul) ? route('update-modul', $modul->id_module) : route('store-modul') }}" method="POST">
+<form action="{{ isset($modul) ? route('update-modul', $modul->id_module) : route('store-modul') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @if(isset($modul))
             @method('PUT')
@@ -40,4 +40,6 @@
         </div>
     </form>
 </div>
+
+
 @endsection

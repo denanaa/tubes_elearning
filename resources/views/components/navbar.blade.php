@@ -75,7 +75,7 @@
                                     class="absolute origin-top-left w-32 p-4 mt-0 bg-white rounded-lg shadow-sm"
                                     x-transition x-cloak>
                                     <!-- Jika admin, tampilkan dashboard -->
-                                    @if (Auth::user()->role === 'admin')
+                                    @if (Auth::check() && Auth::user()->role === 'admin')
                                         <a href="{{ route('dashboard') }}"
                                             class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors focus:bg-sky focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
                                             Dashboard

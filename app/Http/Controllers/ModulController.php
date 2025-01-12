@@ -87,9 +87,9 @@ class ModulController extends Controller
     {
         $query = $request->input('query');
         $modules = Modul::where('name_module', 'like', "%{$query}%")
-                        ->with('category') // Pastikan mengambil kategori
+                        ->with('category')
                         ->get();
-    
+
         return response()->json($modules);
     }
     

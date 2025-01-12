@@ -36,10 +36,10 @@
 
         <div class="my-4 space-y-1">
             <label for="linkVideo" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Link Video</label>
-            <input type="url" id="linkVideo" name="link_video" 
+            <input type="text" id="linkVideo" name="link_video" 
                 value="{{ old('link_video', $video->link_video ?? '') }}" 
                 class="flex w-full max-w-xs h-10 px-3 py-2 text-sm bg-white border rounded-md peer border-neutral-300 ring-offset-background placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" 
-                placeholder="https://example.com/video" required>
+                placeholder="ID Video" required>
         </div>
 
         <div class="my-4 space-y-1">

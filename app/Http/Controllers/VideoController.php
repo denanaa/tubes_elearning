@@ -18,7 +18,7 @@ class VideoController extends Controller
                         ->get();
 
     // Ganti dengan API Key Anda
-    $apiKey = 'AIzaSyB3IU_2Nn3rFaKaydfs9IX52D_OIBB_ke4';
+    $apiKey = config('services.youtube.key');
     $youtubeApiUrl = "https://www.googleapis.com/youtube/v3/videos?id={$video->link_video}&key={$apiKey}&part=snippet,contentDetails,statistics,status";
 
     // Tarik data dari YouTube API
@@ -26,7 +26,7 @@ class VideoController extends Controller
     $videoData = $response->json();
 
     if (isset($videoData['items'][0])) {
-        $youtubeVideo = $videoData['items'][0];
+        $youtubeVideo = $videoData['items'][0]; // Data video dari YouTube API
 
         // Ambil channelId dari video
         $channelId = $youtubeVideo['snippet']['channelId'];
@@ -42,11 +42,13 @@ class VideoController extends Controller
             $channel = null; // Fallback jika data channel tidak ditemukan
         }
 
+        // Kirim data ke view
         return view('video', compact('video', 'otherVideos', 'youtubeVideo', 'channel'));
     } else {
         return abort(404, 'Video not found');
     }
 }
+
 
     public function index()
     {
@@ -65,7 +67,7 @@ class VideoController extends Controller
         $request->validate([
             'id_module' => 'required|exists:modules,id_module',
             'title_video' => 'required|max:150',
-            'link_video' => 'required|url',
+            'link_video' => 'required|string',
             'thumbnail_video' => 'nullable|image',
             'description_video' => 'nullable',
         ]);
@@ -98,7 +100,7 @@ class VideoController extends Controller
     $request->validate([
         'id_module' => 'required|exists:modules,id_module', // Pastikan id_module valid
         'title_video' => 'required|max:150',
-        'link_video' => 'required|url',
+        'link_video' => 'required|string',
         'thumbnail_video' => 'nullable|image', // Jika ada file thumbnail, pastikan itu adalah gambar
         'description_video' => 'nullable', // Deskripsi video boleh kosong
     ]);
@@ -135,7 +137,10 @@ class VideoController extends Controller
         $query = $request->input('query'); // Ambil query dari input form
     
         if ($query) {
-            $videos = Video::where('title_video', 'like', "%{$query}%")->paginate(10);
+            $videos = Video::with('modules')
+                           ->where('title_video', 'like', "%{$query}%")
+                           ->paginate(10);
+
         } else {
             $videos = Video::paginate(10);
         }
@@ -147,15 +152,24 @@ class VideoController extends Controller
     public function liveSearch(Request $request)
     {
         $query = $request->input('query');
-        $videos = Video::where('title_video', 'like', "%{$query}%")->get();
-    
+        $videos = Video::with('module')
+                   ->where('title_video', 'like', "%{$query}%")
+                   ->orWhereHas('module', function ($q) use ($query) {
+                   $q->where('name_module', 'like', "%{$query}%");
+                   })
+                   ->get();
         return response()->json($videos);
     }
     
     
     public function loadAllVideos()
     {
-        $videos = Video::all();
+        $videos = Video::with('module')
+                        ->where('title_video', 'like', "%{$query}%") // Pencarian berdasarkan judul video
+                        ->orWhereHas('module', function ($q) use ($query) { // Pencarian berdasarkan judul modul
+                        $q->where('name_module', 'like', "%{$query}%");
+    })
+    ->get();    
         return response()->json($videos);
     }
 

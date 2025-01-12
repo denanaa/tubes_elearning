@@ -6,7 +6,7 @@
         <div class="card-body text-left p-4">
             <h2 class="text-lg font-bold text-gray-800">{{ $video->title_video }}</h2>
             <p class="text-gray-600">{{ $video->description_video }}</p>
-            <p class="text-right text-blue-600">{{ $video->module->name_module }}</p>
+            <p class="mt-4 text-right text-blue-600">{{ $video->module->name_module }}</p>
         </div>
     </div>
 </a>
